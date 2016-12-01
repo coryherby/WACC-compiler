@@ -1,0 +1,24 @@
+# function call
+
+begin
+  int f1() is
+    return 1
+  end
+
+  pair(int, char) f2() is
+    pair(int, char) p = newpair(1, 'c');
+    return p
+  end
+
+  string[] f3() is
+    string[] s = ["hello", "world"];
+    return s
+  end
+
+  int a = call f1();
+  pair(int, char) b = call f2();
+  string[] c = call f3()
+
+end
+
+

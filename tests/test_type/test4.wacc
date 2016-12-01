@@ -1,0 +1,9 @@
+# pair array assignement
+
+begin
+  pair(string, char) a = newpair("abcd", 'b');
+  pair(string, char) b = newpair("cdef", 'd');
+  pair(string, char)[] c = [a, b];
+
+  pair(string, char)[][] d = [c]
+end

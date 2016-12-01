@@ -1,0 +1,9 @@
+# free array
+
+begin
+  int[] a = [1];
+  int[][] b = [a];
+  free a[1];
+  free b;
+  free b[1]
+end

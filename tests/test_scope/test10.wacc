@@ -1,0 +1,29 @@
+# simple scoping test
+
+# Output:
+# #empty#
+
+# Program:
+
+begin
+  int f(int[] a, bool b) is
+    return a+c;
+    bool b = true;
+    return 0
+  end
+  int f(int[] a, bool b) is
+    bool a = true;
+    return a
+  end
+  int x = call f(a, (a+ b)*3/25, c);
+  int d = call f(a, (a+ b)*3/25, c, d ,e);
+  int f = call f(a, (a+ b)*3/25, c, d);
+  int g = call f(aa);
+  de = 1;
+  bd = 2;
+  int dd = call g();
+  x = 2 /0;
+  int[] dd = 32 + 5434 + 2734;
+  return 2;
+  println x
+end

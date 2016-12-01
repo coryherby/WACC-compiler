@@ -1,0 +1,9 @@
+# free pair
+
+begin
+  int f1() is
+    exit 'c'
+  end
+
+  skip
+end

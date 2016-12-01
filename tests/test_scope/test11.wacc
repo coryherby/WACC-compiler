@@ -1,0 +1,12 @@
+begin
+  int f() is
+    int dd = call g();
+    return 0
+  end
+  int g() is
+    int dd = call f();
+    return a
+  end
+      x = 2 / 000 ;
+      return 2
+end

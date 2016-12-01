@@ -1,0 +1,50 @@
+begin
+	bool hasGivenStateValue(pair(pair, int) state, int stateValue) is
+		return true
+	end
+
+	pair(pair, int) deleteAllOtherChildren(pair(pair, pair) pointers, int moveRow, int moveColumn) is
+    		pair(pair, pair) front = fst pointers ;
+
+    		pair(pair, pair) row1 = fst front ;
+    		pair(pair, pair) row2 = snd front ;
+    		pair(pair, pair) row3 = snd pointers ;
+
+    		# Find which row to keep or which rows to delete.
+    		pair(pair, pair) toKeepRow = null;
+    		pair(pair, pair) toDeleteRow1 = null;
+    		pair(pair, pair) toDeleteRow2 = null;
+
+    		if moveRow == 1 then
+    			toKeepRow = row1 ;
+    			toDeleteRow1 = row2 ;
+    			toDeleteRow2 = row3
+    		else
+    			toDeleteRow1 = row1 ;
+    			if moveRow == 2 then
+    				toKeepRow = row2 ;
+    				toDeleteRow2 = row3
+    			else
+    				# moveRow == 3
+    				toKeepRow = row3 ;
+    				toDeleteRow2 = row2
+    			fi
+    		fi ;
+
+    		pair(pair, int) out = call deleteAllOtherChildrenRow(toKeepRow, moveColumn) ;
+    		bool _ = call deleteChildrenStateRecursivelyRow(toDeleteRow1) ;
+    		_ = call deleteChildrenStateRecursivelyRow(toDeleteRow2) ;
+
+    		return out
+    	end
+
+    # Notify a move made by a human player to the AI. Return true.
+    	bool notifyMoveAI(pair(pair, pair) board) is
+
+    		pair(pair, pair) board = fst front ;
+    		return true
+
+    	end
+
+	exit 0
+end

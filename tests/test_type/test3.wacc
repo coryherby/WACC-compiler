@@ -1,0 +1,13 @@
+# array assignment
+
+begin
+  int[] a = [2, 6 , 8, 2];
+  int[] b = [5, 4, 6, 7];
+  int[][] c = [a, b];
+  int[][][] d = [c];
+  int[][][][] e = [d];
+
+  bool[] f = [true, false];
+  bool[] g = [];
+  bool[][] h = [f, g]
+end

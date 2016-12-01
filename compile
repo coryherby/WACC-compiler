@@ -1,0 +1,23 @@
+#!/usr/bin/ruby
+# Ruby front-end for your compiler.
+# You are free to change the language used for this script,
+# but do *not* change its name.
+
+numberOfArgs = ARGV.length
+inputformat = "Format should be of type: ./compile <filepath>"
+
+if numberOfArgs == 0 then
+    puts "No file path has been given!"
+    puts inputformat
+elsif numberOfArgs > 1
+    puts "Too many arguments were given!"
+    puts inputformat
+else 
+    file = ARGV[0]
+    command = "/usr/lib/jvm/jdk-8-oracle-x64/bin/java -cp bin:lib/antlr-4.4-complete.jar wacc.WaccCompiler " \
+        + file + " < " + file
+    system command
+    
+    exitCode = $?.exitstatus.to_i
+    exit exitCode
+end

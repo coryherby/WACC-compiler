@@ -1,0 +1,4006 @@
+0	.data
+1
+2	msg_0:
+3		.word 38
+4		.ascii	"========= Tic Tac Toe ================"
+5	msg_1:
+6		.word 38
+7		.ascii	"=  Because we know you want to win   ="
+8	msg_2:
+9		.word 38
+10		.ascii	"======================================"
+11	msg_3:
+12		.word 38
+13		.ascii	"=                                    ="
+14	msg_4:
+15		.word 38
+16		.ascii	"= Who would you like to be?          ="
+17	msg_5:
+18		.word 38
+19		.ascii	"=   x  (play first)                  ="
+20	msg_6:
+21		.word 38
+22		.ascii	"=   o  (play second)                 ="
+23	msg_7:
+24		.word 38
+25		.ascii	"=   q  (quit)                        ="
+26	msg_8:
+27		.word 38
+28		.ascii	"=                                    ="
+29	msg_9:
+30		.word 38
+31		.ascii	"======================================"
+32	msg_10:
+33		.word 39
+34		.ascii	"Which symbol you would like to choose: "
+35	msg_11:
+36		.word 15
+37		.ascii	"Goodbye safety."
+38	msg_12:
+39		.word 16
+40		.ascii	"Invalid symbol: "
+41	msg_13:
+42		.word 17
+43		.ascii	"Please try again."
+44	msg_14:
+45		.word 17
+46		.ascii	"You have chosen: "
+47	msg_15:
+48		.word 6
+49		.ascii	" 1 2 3"
+50	msg_16:
+51		.word 1
+52		.ascii	"1"
+53	msg_17:
+54		.word 6
+55		.ascii	" -+-+-"
+56	msg_18:
+57		.word 1
+58		.ascii	"2"
+59	msg_19:
+60		.word 6
+61		.ascii	" -+-+-"
+62	msg_20:
+63		.word 1
+64		.ascii	"3"
+65	msg_21:
+66		.word 0
+67		.ascii	""
+68	msg_22:
+69		.word 0
+70		.ascii	""
+71	msg_23:
+72		.word 23
+73		.ascii	"What is your next move?"
+74	msg_24:
+75		.word 12
+76		.ascii	" row (1-3): "
+77	msg_25:
+78		.word 15
+79		.ascii	" column (1-3): "
+80	msg_26:
+81		.word 0
+82		.ascii	""
+83	msg_27:
+84		.word 39
+85		.ascii	"Your move is invalid. Please try again."
+86	msg_28:
+87		.word 21
+88		.ascii	"The AI played at row "
+89	msg_29:
+90		.word 8
+91		.ascii	" column "
+92	msg_30:
+93		.word 31
+94		.ascii	"AI is cleaning up its memory..."
+95	msg_31:
+96		.word 52
+97		.ascii	"Internal Error: cannot find the next move for the AI"
+98	msg_32:
+99		.word 31
+100		.ascii	"AI is cleaning up its memory..."
+101	msg_33:
+102		.word 50
+103		.ascii	"Internal Error: symbol given is neither \'x\' or \'o\'"
+104	msg_34:
+105		.word 58
+106		.ascii	"Initialising AI. Please wait, this may take a few minutes."
+107	msg_35:
+108		.word 9
+109		.ascii	" has won!"
+110	msg_36:
+111		.word 10
+112		.ascii	"Stalemate!"
+113	msg_37:
+114		.word 5
+115		.ascii	"%.*s\0"
+116	msg_38:
+117		.word 1
+118		.ascii	"\0"
+119	msg_39:
+120		.word 4
+121		.ascii	" %c\0"
+122	msg_40:
+123		.word 50
+124		.ascii	"NullReferenceError: dereference a null reference\n\0"
+125	msg_41:
+126		.word 3
+127		.ascii	"%d\0"
+128	msg_42:
+129		.word 44
+130		.ascii	"ArrayIndexOutOfBoundsError: negative index\n\0"
+131	msg_43:
+132		.word 45
+133		.ascii	"ArrayIndexOutOfBoundsError: index too large\n\0"
+134	msg_44:
+135		.word 3
+136		.ascii	"%d\0"
+137	msg_45:
+138		.word 50
+139		.ascii	"NullReferenceError: dereference a null reference\n\0"
+140	msg_46:
+141		.word 82
+142		.ascii	"OverflowError: the result is too small/large to store in a 4-byte signed-integer.\n"
+143
+144	.text
+145
+146	.global main
+147	f_chooseSymbol:
+148		PUSH {lr}
+149		SUB sp, sp, #1
+150		LDR r4, =msg_0
+151		MOV r0, r4
+152		BL p_print_string
+153		BL p_print_ln
+154		LDR r4, =msg_1
+155		MOV r0, r4
+156		BL p_print_string
+157		BL p_print_ln
+158		LDR r4, =msg_2
+159		MOV r0, r4
+160		BL p_print_string
+161		BL p_print_ln
+162		LDR r4, =msg_3
+163		MOV r0, r4
+164		BL p_print_string
+165		BL p_print_ln
+166		LDR r4, =msg_4
+167		MOV r0, r4
+168		BL p_print_string
+169		BL p_print_ln
+170		LDR r4, =msg_5
+171		MOV r0, r4
+172		BL p_print_string
+173		BL p_print_ln
+174		LDR r4, =msg_6
+175		MOV r0, r4
+176		BL p_print_string
+177		BL p_print_ln
+178		LDR r4, =msg_7
+179		MOV r0, r4
+180		BL p_print_string
+181		BL p_print_ln
+182		LDR r4, =msg_8
+183		MOV r0, r4
+184		BL p_print_string
+185		BL p_print_ln
+186		LDR r4, =msg_9
+187		MOV r0, r4
+188		BL p_print_string
+189		BL p_print_ln
+190		MOV r4, #0
+191		STRB r4, [sp]
+192		B L0
+193	L1:
+194		SUB sp, sp, #1
+195		LDR r4, =msg_10
+196		MOV r0, r4
+197		BL p_print_string
+198		MOV r4, #0
+199		STRB r4, [sp]
+200		ADD r4, sp, #0
+201		MOV r0, r4
+202		BL p_read_char
+203		LDRSB r4, [sp]
+204		MOV r5, #'x'
+205		CMP r4, r5
+206		MOVEQ r4, #1
+207		MOVNE r4, #0
+208		LDRSB r5, [sp]
+209		MOV r6, #'X'
+210		CMP r5, r6
+211		MOVEQ r5, #1
+212		MOVNE r5, #0
+213		ORR r4, r4, r5
+214		CMP r4, #0
+215		BEQ L2
+216		MOV r4, #'x'
+217		STRB r4, [sp, #1]
+218		B L3
+219	L2:
+220		LDRSB r4, [sp]
+221		MOV r5, #'o'
+222		CMP r4, r5
+223		MOVEQ r4, #1
+224		MOVNE r4, #0
+225		LDRSB r5, [sp]
+226		MOV r6, #'O'
+227		CMP r5, r6
+228		MOVEQ r5, #1
+229		MOVNE r5, #0
+230		ORR r4, r4, r5
+231		CMP r4, #0
+232		BEQ L4
+233		MOV r4, #'o'
+234		STRB r4, [sp, #1]
+235		B L5
+236	L4:
+237		LDRSB r4, [sp]
+238		MOV r5, #'q'
+239		CMP r4, r5
+240		MOVEQ r4, #1
+241		MOVNE r4, #0
+242		LDRSB r5, [sp]
+243		MOV r6, #'Q'
+244		CMP r5, r6
+245		MOVEQ r5, #1
+246		MOVNE r5, #0
+247		ORR r4, r4, r5
+248		CMP r4, #0
+249		BEQ L6
+250		LDR r4, =msg_11
+251		MOV r0, r4
+252		BL p_print_string
+253		BL p_print_ln
+254		LDR r4, =0
+255		MOV r0, r4
+256		BL exit
+257		B L7
+258	L6:
+259		LDR r4, =msg_12
+260		MOV r0, r4
+261		BL p_print_string
+262		LDRSB r4, [sp]
+263		MOV r0, r4
+264		BL putchar
+265		BL p_print_ln
+266		LDR r4, =msg_13
+267		MOV r0, r4
+268		BL p_print_string
+269		BL p_print_ln
+270	L7:
+271	L5:
+272	L3:
+273		ADD sp, sp, #1
+274	L0:
+275		LDRSB r4, [sp]
+276		MOV r5, #0
+277		CMP r4, r5
+278		MOVEQ r4, #1
+279		MOVNE r4, #0
+280		CMP r4, #1
+281		BEQ L1
+282		LDR r4, =msg_14
+283		MOV r0, r4
+284		BL p_print_string
+285		LDRSB r4, [sp]
+286		MOV r0, r4
+287		BL putchar
+288		BL p_print_ln
+289		LDRSB r4, [sp]
+290		MOV r0, r4
+291		ADD sp, sp, #1
+292		POP {pc}
+293		POP {pc}
+294		.ltorg
+295	f_printBoard:
+296		PUSH {lr}
+297		SUB sp, sp, #17
+298		LDR r4, [sp, #21]
+299		MOV r0, r4
+300		BL p_check_null_pointer
+301		LDR r4, [r4]
+302		LDR r4, [r4]
+303		STR r4, [sp, #13]
+304		LDR r4, [sp, #13]
+305		MOV r0, r4
+306		BL p_check_null_pointer
+307		LDR r4, [r4]
+308		LDR r4, [r4]
+309		STR r4, [sp, #9]
+310		LDR r4, [sp, #13]
+311		MOV r0, r4
+312		BL p_check_null_pointer
+313		LDR r4, [r4, #4]
+314		LDR r4, [r4]
+315		STR r4, [sp, #5]
+316		LDR r4, [sp, #21]
+317		MOV r0, r4
+318		BL p_check_null_pointer
+319		LDR r4, [r4, #4]
+320		LDR r4, [r4]
+321		STR r4, [sp, #1]
+322		LDR r4, =msg_15
+323		MOV r0, r4
+324		BL p_print_string
+325		BL p_print_ln
+326		LDR r4, =msg_16
+327		MOV r0, r4
+328		BL p_print_string
+329		LDR r4, [sp, #9]
+330		STR r4, [sp, #-4]!
+331		BL f_printRow
+332		ADD sp, sp, #4
+333		MOV r4, r0
+334		STRB r4, [sp]
+335		LDR r4, =msg_17
+336		MOV r0, r4
+337		BL p_print_string
+338		BL p_print_ln
+339		LDR r4, =msg_18
+340		MOV r0, r4
+341		BL p_print_string
+342		LDR r4, [sp, #5]
+343		STR r4, [sp, #-4]!
+344		BL f_printRow
+345		ADD sp, sp, #4
+346		MOV r4, r0
+347		STRB r4, [sp]
+348		LDR r4, =msg_19
+349		MOV r0, r4
+350		BL p_print_string
+351		BL p_print_ln
+352		LDR r4, =msg_20
+353		MOV r0, r4
+354		BL p_print_string
+355		LDR r4, [sp, #1]
+356		STR r4, [sp, #-4]!
+357		BL f_printRow
+358		ADD sp, sp, #4
+359		MOV r4, r0
+360		STRB r4, [sp]
+361		LDR r4, =msg_21
+362		MOV r0, r4
+363		BL p_print_string
+364		BL p_print_ln
+365		MOV r4, #1
+366		MOV r0, r4
+367		ADD sp, sp, #17
+368		POP {pc}
+369		POP {pc}
+370		.ltorg
+371	f_printRow:
+372		PUSH {lr}
+373		SUB sp, sp, #8
+374		LDR r4, [sp, #12]
+375		MOV r0, r4
+376		BL p_check_null_pointer
+377		LDR r4, [r4]
+378		LDR r4, [r4]
+379		STR r4, [sp, #4]
+380		LDR r4, [sp, #4]
+381		MOV r0, r4
+382		BL p_check_null_pointer
+383		LDR r4, [r4]
+384		LDRSB r4, [r4]
+385		STRB r4, [sp, #3]
+386		LDR r4, [sp, #4]
+387		MOV r0, r4
+388		BL p_check_null_pointer
+389		LDR r4, [r4, #4]
+390		LDRSB r4, [r4]
+391		STRB r4, [sp, #2]
+392		LDR r4, [sp, #12]
+393		MOV r0, r4
+394		BL p_check_null_pointer
+395		LDR r4, [r4, #4]
+396		LDRSB r4, [r4]
+397		STRB r4, [sp, #1]
+398		LDRSB r4, [sp, #3]
+399		STRB r4, [sp, #-1]!
+400		BL f_printCell
+401		ADD sp, sp, #1
+402		MOV r4, r0
+403		STRB r4, [sp]
+404		MOV r4, #'|'
+405		MOV r0, r4
+406		BL putchar
+407		LDRSB r4, [sp, #2]
+408		STRB r4, [sp, #-1]!
+409		BL f_printCell
+410		ADD sp, sp, #1
+411		MOV r4, r0
+412		STRB r4, [sp]
+413		MOV r4, #'|'
+414		MOV r0, r4
+415		BL putchar
+416		LDRSB r4, [sp, #1]
+417		STRB r4, [sp, #-1]!
+418		BL f_printCell
+419		ADD sp, sp, #1
+420		MOV r4, r0
+421		STRB r4, [sp]
+422		LDR r4, =msg_22
+423		MOV r0, r4
+424		BL p_print_string
+425		BL p_print_ln
+426		MOV r4, #1
+427		MOV r0, r4
+428		ADD sp, sp, #8
+429		POP {pc}
+430		POP {pc}
+431		.ltorg
+432	f_printCell:
+433		PUSH {lr}
+434		LDRSB r4, [sp, #4]
+435		MOV r5, #0
+436		CMP r4, r5
+437		MOVEQ r4, #1
+438		MOVNE r4, #0
+439		CMP r4, #0
+440		BEQ L8
+441		MOV r4, #' '
+442		MOV r0, r4
+443		BL putchar
+444		B L9
+445	L8:
+446		LDRSB r4, [sp, #4]
+447		MOV r0, r4
+448		BL putchar
+449	L9:
+450		MOV r4, #1
+451		MOV r0, r4
+452		POP {pc}
+453		POP {pc}
+454		.ltorg
+455	f_askForAMoveHuman:
+456		PUSH {lr}
+457		SUB sp, sp, #9
+458		MOV r4, #0
+459		STRB r4, [sp, #8]
+460		LDR r4, =0
+461		STR r4, [sp, #4]
+462		LDR r4, =0
+463		STR r4, [sp]
+464		B L10
+465	L11:
+466		LDR r4, =msg_23
+467		MOV r0, r4
+468		BL p_print_string
+469		BL p_print_ln
+470		LDR r4, =msg_24
+471		MOV r0, r4
+472		BL p_print_string
+473		ADD r4, sp, #4
+474		MOV r0, r4
+475		BL p_read_int
+476		LDR r4, =msg_25
+477		MOV r0, r4
+478		BL p_print_string
+479		ADD r4, sp, #0
+480		MOV r0, r4
+481		BL p_read_int
+482		LDR r4, [sp]
+483		STR r4, [sp, #-4]!
+484		LDR r4, [sp, #8]
+485		STR r4, [sp, #-4]!
+486		LDR r4, [sp, #21]
+487		STR r4, [sp, #-4]!
+488		BL f_validateMove
+489		ADD sp, sp, #12
+490		MOV r4, r0
+491		STRB r4, [sp, #8]
+492		LDRSB r4, [sp, #8]
+493		CMP r4, #0
+494		BEQ L12
+495		LDR r4, =msg_26
+496		MOV r0, r4
+497		BL p_print_string
+498		BL p_print_ln
+499		LDR r4, [sp, #4]
+500		ADD r5, sp, #17
+501		LDR r6, =0
+502		LDR r5, [r5]
+503		MOV r0, r6
+504		MOV r1, r5
+505		BL p_check_array_bounds
+506		ADD r5, r5, #4
+507		ADD r5, r5, r6, LSL #2
+508		STR r4, [r5]
+509		LDR r4, [sp]
+510		ADD r6, sp, #17
+511		LDR r7, =1
+512		LDR r6, [r6]
+513		MOV r0, r7
+514		MOV r1, r6
+515		BL p_check_array_bounds
+516		ADD r6, r6, #4
+517		ADD r6, r6, r7, LSL #2
+518		STR r4, [r6]
+519		MOV r4, #1
+520		MOV r0, r4
+521		ADD sp, sp, #9
+522		POP {pc}
+523		B L13
+524	L12:
+525		LDR r4, =msg_27
+526		MOV r0, r4
+527		BL p_print_string
+528		BL p_print_ln
+529	L13:
+530	L10:
+531		LDRSB r4, [sp, #8]
+532		EOR r4, r4, #1
+533		CMP r4, #1
+534		BEQ L11
+535		MOV r4, #1
+536		MOV r0, r4
+537		ADD sp, sp, #9
+538		POP {pc}
+539		POP {pc}
+540		.ltorg
+541	f_validateMove:
+542		PUSH {lr}
+543		LDR r4, =1
+544		LDR r5, [sp, #8]
+545		CMP r4, r5
+546		MOVLE r4, #1
+547		MOVGT r4, #0
+548		LDR r5, [sp, #8]
+549		LDR r6, =3
+550		CMP r5, r6
+551		MOVLE r5, #1
+552		MOVGT r5, #0
+553		AND r4, r4, r5
+554		LDR r5, =1
+555		LDR r6, [sp, #12]
+556		CMP r5, r6
+557		MOVLE r5, #1
+558		MOVGT r5, #0
+559		AND r4, r4, r5
+560		LDR r5, [sp, #12]
+561		LDR r6, =3
+562		CMP r5, r6
+563		MOVLE r5, #1
+564		MOVGT r5, #0
+565		AND r4, r4, r5
+566		CMP r4, #0
+567		BEQ L14
+568		SUB sp, sp, #1
+569		LDR r4, [sp, #13]
+570		STR r4, [sp, #-4]!
+571		LDR r4, [sp, #13]
+572		STR r4, [sp, #-4]!
+573		LDR r4, [sp, #13]
+574		STR r4, [sp, #-4]!
+575		BL f_symbolAt
+576		ADD sp, sp, #12
+577		MOV r4, r0
+578		STRB r4, [sp]
+579		LDRSB r4, [sp]
+580		MOV r5, #0
+581		CMP r4, r5
+582		MOVEQ r4, #1
+583		MOVNE r4, #0
+584		MOV r0, r4
+585		ADD sp, sp, #1
+586		POP {pc}
+587		ADD sp, sp, #1
+588		B L15
+589	L14:
+590		MOV r4, #0
+591		MOV r0, r4
+592		POP {pc}
+593	L15:
+594		POP {pc}
+595		.ltorg
+596	f_notifyMoveHuman:
+597		PUSH {lr}
+598		LDR r4, =msg_28
+599		MOV r0, r4
+600		BL p_print_string
+601		LDR r4, [sp, #10]
+602		MOV r0, r4
+603		BL p_print_int
+604		LDR r4, =msg_29
+605		MOV r0, r4
+606		BL p_print_string
+607		LDR r4, [sp, #14]
+608		MOV r0, r4
+609		BL p_print_int
+610		BL p_print_ln
+611		MOV r4, #1
+612		MOV r0, r4
+613		POP {pc}
+614		POP {pc}
+615		.ltorg
+616	f_initAI:
+617		PUSH {lr}
+618		SUB sp, sp, #16
+619		LDR r0, =8
+620		BL malloc
+621		MOV r4, r0
+622		LDRSB r5, [sp, #20]
+623		LDR r0, =1
+624		BL malloc
+625		STRB r5, [r0]
+626		STR r0, [r4]
+627		LDR r5, =0
+628		LDR r0, =4
+629		BL malloc
+630		STR r5, [r0]
+631		STR r0, [r4, #4]
+632		STR r4, [sp, #12]
+633		LDRSB r4, [sp, #20]
+634		STRB r4, [sp, #-1]!
+635		BL f_generateAllPossibleStates
+636		ADD sp, sp, #1
+637		MOV r4, r0
+638		STR r4, [sp, #8]
+639		MOV r4, #'x'
+640		STRB r4, [sp, #-1]!
+641		LDRSB r4, [sp, #21]
+642		STRB r4, [sp, #-1]!
+643		LDR r4, [sp, #10]
+644		STR r4, [sp, #-4]!
+645		BL f_setValuesForAllStates
+646		ADD sp, sp, #6
+647		MOV r4, r0
+648		STR r4, [sp, #4]
+649		LDR r0, =8
+650		BL malloc
+651		MOV r4, r0
+652		LDR r5, [sp, #12]
+653		LDR r0, =4
+654		BL malloc
+655		STR r5, [r0]
+656		STR r0, [r4]
+657		LDR r5, [sp, #8]
+658		LDR r0, =4
+659		BL malloc
+660		STR r5, [r0]
+661		STR r0, [r4, #4]
+662		STR r4, [sp]
+663		LDR r4, [sp]
+664		MOV r0, r4
+665		ADD sp, sp, #16
+666		POP {pc}
+667		POP {pc}
+668		.ltorg
+669	f_generateAllPossibleStates:
+670		PUSH {lr}
+671		SUB sp, sp, #8
+672		BL f_allocateNewBoard
+673		MOV r4, r0
+674		STR r4, [sp, #4]
+675		LDR r4, [sp, #4]
+676		STR r4, [sp, #-4]!
+677		BL f_convertFromBoardToState
+678		ADD sp, sp, #4
+679		MOV r4, r0
+680		STR r4, [sp]
+681		MOV r4, #'x'
+682		STRB r4, [sp, #-1]!
+683		LDR r4, [sp, #1]
+684		STR r4, [sp, #-4]!
+685		BL f_generateNextStates
+686		ADD sp, sp, #5
+687		MOV r4, r0
+688		STR r4, [sp]
+689		LDR r4, [sp]
+690		MOV r0, r4
+691		ADD sp, sp, #8
+692		POP {pc}
+693		POP {pc}
+694		.ltorg
+695	f_convertFromBoardToState:
+696		PUSH {lr}
+697		SUB sp, sp, #12
+698		BL f_generateEmptyPointerBoard
+699		MOV r4, r0
+700		STR r4, [sp, #8]
+701		LDR r0, =8
+702		BL malloc
+703		MOV r4, r0
+704		LDR r5, [sp, #16]
+705		LDR r0, =4
+706		BL malloc
+707		STR r5, [r0]
+708		STR r0, [r4]
+709		LDR r5, [sp, #8]
+710		LDR r0, =4
+711		BL malloc
+712		STR r5, [r0]
+713		STR r0, [r4, #4]
+714		STR r4, [sp, #4]
+715		LDR r0, =8
+716		BL malloc
+717		MOV r4, r0
+718		LDR r5, [sp, #4]
+719		LDR r0, =4
+720		BL malloc
+721		STR r5, [r0]
+722		STR r0, [r4]
+723		LDR r5, =0
+724		LDR r0, =4
+725		BL malloc
+726		STR r5, [r0]
+727		STR r0, [r4, #4]
+728		STR r4, [sp]
+729		LDR r4, [sp]
+730		MOV r0, r4
+731		ADD sp, sp, #12
+732		POP {pc}
+733		POP {pc}
+734		.ltorg
+735	f_generateEmptyPointerBoard:
+736		PUSH {lr}
+737		SUB sp, sp, #20
+738		BL f_generateEmptyPointerRow
+739		MOV r4, r0
+740		STR r4, [sp, #16]
+741		BL f_generateEmptyPointerRow
+742		MOV r4, r0
+743		STR r4, [sp, #12]
+744		BL f_generateEmptyPointerRow
+745		MOV r4, r0
+746		STR r4, [sp, #8]
+747		LDR r0, =8
+748		BL malloc
+749		MOV r4, r0
+750		LDR r5, [sp, #16]
+751		LDR r0, =4
+752		BL malloc
+753		STR r5, [r0]
+754		STR r0, [r4]
+755		LDR r5, [sp, #12]
+756		LDR r0, =4
+757		BL malloc
+758		STR r5, [r0]
+759		STR r0, [r4, #4]
+760		STR r4, [sp, #4]
+761		LDR r0, =8
+762		BL malloc
+763		MOV r4, r0
+764		LDR r5, [sp, #4]
+765		LDR r0, =4
+766		BL malloc
+767		STR r5, [r0]
+768		STR r0, [r4]
+769		LDR r5, [sp, #8]
+770		LDR r0, =4
+771		BL malloc
+772		STR r5, [r0]
+773		STR r0, [r4, #4]
+774		STR r4, [sp]
+775		LDR r4, [sp]
+776		MOV r0, r4
+777		ADD sp, sp, #20
+778		POP {pc}
+779		POP {pc}
+780		.ltorg
+781	f_generateEmptyPointerRow:
+782		PUSH {lr}
+783		SUB sp, sp, #8
+784		LDR r0, =8
+785		BL malloc
+786		MOV r4, r0
+787		LDR r5, =0
+788		LDR r0, =4
+789		BL malloc
+790		STR r5, [r0]
+791		STR r0, [r4]
+792		LDR r5, =0
+793		LDR r0, =4
+794		BL malloc
+795		STR r5, [r0]
+796		STR r0, [r4, #4]
+797		STR r4, [sp, #4]
+798		LDR r0, =8
+799		BL malloc
+800		MOV r4, r0
+801		LDR r5, [sp, #4]
+802		LDR r0, =4
+803		BL malloc
+804		STR r5, [r0]
+805		STR r0, [r4]
+806		LDR r5, =0
+807		LDR r0, =4
+808		BL malloc
+809		STR r5, [r0]
+810		STR r0, [r4, #4]
+811		STR r4, [sp]
+812		LDR r4, [sp]
+813		MOV r0, r4
+814		ADD sp, sp, #8
+815		POP {pc}
+816		POP {pc}
+817		.ltorg
+818	f_generateNextStates:
+819		PUSH {lr}
+820		SUB sp, sp, #14
+821		LDR r4, [sp, #18]
+822		MOV r0, r4
+823		BL p_check_null_pointer
+824		LDR r4, [r4]
+825		LDR r4, [r4]
+826		STR r4, [sp, #10]
+827		LDR r4, [sp, #10]
+828		MOV r0, r4
+829		BL p_check_null_pointer
+830		LDR r4, [r4]
+831		LDR r4, [r4]
+832		STR r4, [sp, #6]
+833		LDR r4, [sp, #10]
+834		MOV r0, r4
+835		BL p_check_null_pointer
+836		LDR r4, [r4, #4]
+837		LDR r4, [r4]
+838		STR r4, [sp, #2]
+839		LDRSB r4, [sp, #22]
+840		STRB r4, [sp, #-1]!
+841		BL f_oppositeSymbol
+842		ADD sp, sp, #1
+843		MOV r4, r0
+844		STRB r4, [sp, #1]
+845		LDRSB r4, [sp, #1]
+846		STRB r4, [sp, #-1]!
+847		LDR r4, [sp, #7]
+848		STR r4, [sp, #-4]!
+849		BL f_hasWon
+850		ADD sp, sp, #5
+851		MOV r4, r0
+852		STRB r4, [sp]
+853		LDRSB r4, [sp]
+854		CMP r4, #0
+855		BEQ L16
+856		LDR r4, [sp, #18]
+857		MOV r0, r4
+858		ADD sp, sp, #14
+859		POP {pc}
+860		B L17
+861	L16:
+862		SUB sp, sp, #1
+863		LDRSB r4, [sp, #23]
+864		STRB r4, [sp, #-1]!
+865		LDR r4, [sp, #4]
+866		STR r4, [sp, #-4]!
+867		LDR r4, [sp, #12]
+868		STR r4, [sp, #-4]!
+869		BL f_generateNextStatesBoard
+870		ADD sp, sp, #9
+871		MOV r4, r0
+872		STRB r4, [sp]
+873		LDR r4, [sp, #19]
+874		MOV r0, r4
+875		ADD sp, sp, #15
+876		POP {pc}
+877		ADD sp, sp, #1
+878	L17:
+879		POP {pc}
+880		.ltorg
+881	f_generateNextStatesBoard:
+882		PUSH {lr}
+883		SUB sp, sp, #33
+884		LDR r4, [sp, #37]
+885		MOV r0, r4
+886		BL p_check_null_pointer
+887		LDR r4, [r4]
+888		LDR r4, [r4]
+889		STR r4, [sp, #29]
+890		LDR r4, [sp, #29]
+891		MOV r0, r4
+892		BL p_check_null_pointer
+893		LDR r4, [r4]
+894		LDR r4, [r4]
+895		STR r4, [sp, #25]
+896		LDR r4, [sp, #29]
+897		MOV r0, r4
+898		BL p_check_null_pointer
+899		LDR r4, [r4, #4]
+900		LDR r4, [r4]
+901		STR r4, [sp, #21]
+902		LDR r4, [sp, #37]
+903		MOV r0, r4
+904		BL p_check_null_pointer
+905		LDR r4, [r4, #4]
+906		LDR r4, [r4]
+907		STR r4, [sp, #17]
+908		LDR r4, [sp, #41]
+909		MOV r0, r4
+910		BL p_check_null_pointer
+911		LDR r4, [r4]
+912		LDR r4, [r4]
+913		STR r4, [sp, #13]
+914		LDR r4, [sp, #13]
+915		MOV r0, r4
+916		BL p_check_null_pointer
+917		LDR r4, [r4]
+918		LDR r4, [r4]
+919		STR r4, [sp, #9]
+920		LDR r4, [sp, #13]
+921		MOV r0, r4
+922		BL p_check_null_pointer
+923		LDR r4, [r4, #4]
+924		LDR r4, [r4]
+925		STR r4, [sp, #5]
+926		LDR r4, [sp, #41]
+927		MOV r0, r4
+928		BL p_check_null_pointer
+929		LDR r4, [r4, #4]
+930		LDR r4, [r4]
+931		STR r4, [sp, #1]
+932		LDR r4, =1
+933		STR r4, [sp, #-4]!
+934		LDRSB r4, [sp, #49]
+935		STRB r4, [sp, #-1]!
+936		LDR r4, [sp, #14]
+937		STR r4, [sp, #-4]!
+938		LDR r4, [sp, #34]
+939		STR r4, [sp, #-4]!
+940		LDR r4, [sp, #50]
+941		STR r4, [sp, #-4]!
+942		BL f_generateNextStatesRow
+943		ADD sp, sp, #17
+944		MOV r4, r0
+945		STRB r4, [sp]
+946		LDR r4, =2
+947		STR r4, [sp, #-4]!
+948		LDRSB r4, [sp, #49]
+949		STRB r4, [sp, #-1]!
+950		LDR r4, [sp, #10]
+951		STR r4, [sp, #-4]!
+952		LDR r4, [sp, #30]
+953		STR r4, [sp, #-4]!
+954		LDR r4, [sp, #50]
+955		STR r4, [sp, #-4]!
+956		BL f_generateNextStatesRow
+957		ADD sp, sp, #17
+958		MOV r4, r0
+959		STRB r4, [sp]
+960		LDR r4, =3
+961		STR r4, [sp, #-4]!
+962		LDRSB r4, [sp, #49]
+963		STRB r4, [sp, #-1]!
+964		LDR r4, [sp, #6]
+965		STR r4, [sp, #-4]!
+966		LDR r4, [sp, #26]
+967		STR r4, [sp, #-4]!
+968		LDR r4, [sp, #50]
+969		STR r4, [sp, #-4]!
+970		BL f_generateNextStatesRow
+971		ADD sp, sp, #17
+972		MOV r4, r0
+973		STRB r4, [sp]
+974		MOV r4, #1
+975		MOV r0, r4
+976		ADD sp, sp, #33
+977		POP {pc}
+978		POP {pc}
+979		.ltorg
+980	f_generateNextStatesRow:
+981		PUSH {lr}
+982		SUB sp, sp, #11
+983		LDR r4, [sp, #19]
+984		MOV r0, r4
+985		BL p_check_null_pointer
+986		LDR r4, [r4]
+987		LDR r4, [r4]
+988		STR r4, [sp, #7]
+989		LDR r4, [sp, #7]
+990		MOV r0, r4
+991		BL p_check_null_pointer
+992		LDR r4, [r4]
+993		LDRSB r4, [r4]
+994		STRB r4, [sp, #6]
+995		LDR r4, [sp, #7]
+996		MOV r0, r4
+997		BL p_check_null_pointer
+998		LDR r4, [r4, #4]
+999		LDRSB r4, [r4]
+1000		STRB r4, [sp, #5]
+1001		LDR r4, [sp, #19]
+1002		MOV r0, r4
+1003		BL p_check_null_pointer
+1004		LDR r4, [r4, #4]
+1005		LDRSB r4, [r4]
+1006		STRB r4, [sp, #4]
+1007		LDR r4, [sp, #23]
+1008		MOV r0, r4
+1009		BL p_check_null_pointer
+1010		LDR r4, [r4]
+1011		LDR r4, [r4]
+1012		STR r4, [sp]
+1013		LDR r4, =1
+1014		STR r4, [sp, #-4]!
+1015		LDR r4, [sp, #32]
+1016		STR r4, [sp, #-4]!
+1017		LDRSB r4, [sp, #35]
+1018		STRB r4, [sp, #-1]!
+1019		LDRSB r4, [sp, #15]
+1020		STRB r4, [sp, #-1]!
+1021		LDR r4, [sp, #25]
+1022		STR r4, [sp, #-4]!
+1023		BL f_generateNextStatesCell
+1024		ADD sp, sp, #14
+1025		MOV r4, r0
+1026		LDR r5, [sp]
+1027		MOV r0, r5
+1028		BL p_check_null_pointer
+1029		LDR r5, [r5]
+1030		STR r4, [r5]
+1031		LDR r4, =2
+1032		STR r4, [sp, #-4]!
+1033		LDR r4, [sp, #32]
+1034		STR r4, [sp, #-4]!
+1035		LDRSB r4, [sp, #35]
+1036		STRB r4, [sp, #-1]!
+1037		LDRSB r4, [sp, #14]
+1038		STRB r4, [sp, #-1]!
+1039		LDR r4, [sp, #25]
+1040		STR r4, [sp, #-4]!
+1041		BL f_generateNextStatesCell
+1042		ADD sp, sp, #14
+1043		MOV r4, r0
+1044		LDR r5, [sp]
+1045		MOV r0, r5
+1046		BL p_check_null_pointer
+1047		LDR r5, [r5, #4]
+1048		STR r4, [r5]
+1049		LDR r4, =3
+1050		STR r4, [sp, #-4]!
+1051		LDR r4, [sp, #32]
+1052		STR r4, [sp, #-4]!
+1053		LDRSB r4, [sp, #35]
+1054		STRB r4, [sp, #-1]!
+1055		LDRSB r4, [sp, #13]
+1056		STRB r4, [sp, #-1]!
+1057		LDR r4, [sp, #25]
+1058		STR r4, [sp, #-4]!
+1059		BL f_generateNextStatesCell
+1060		ADD sp, sp, #14
+1061		MOV r4, r0
+1062		LDR r5, [sp, #23]
+1063		MOV r0, r5
+1064		BL p_check_null_pointer
+1065		LDR r5, [r5, #4]
+1066		STR r4, [r5]
+1067		MOV r4, #1
+1068		MOV r0, r4
+1069		ADD sp, sp, #11
+1070		POP {pc}
+1071		POP {pc}
+1072		.ltorg
+1073	f_generateNextStatesCell:
+1074		PUSH {lr}
+1075		LDRSB r4, [sp, #8]
+1076		MOV r5, #0
+1077		CMP r4, r5
+1078		MOVEQ r4, #1
+1079		MOVNE r4, #0
+1080		CMP r4, #0
+1081		BEQ L18
+1082		SUB sp, sp, #10
+1083		LDR r4, [sp, #14]
+1084		STR r4, [sp, #-4]!
+1085		BL f_cloneBoard
+1086		ADD sp, sp, #4
+1087		MOV r4, r0
+1088		STR r4, [sp, #6]
+1089		LDR r4, [sp, #24]
+1090		STR r4, [sp, #-4]!
+1091		LDR r4, [sp, #24]
+1092		STR r4, [sp, #-4]!
+1093		LDRSB r4, [sp, #27]
+1094		STRB r4, [sp, #-1]!
+1095		LDR r4, [sp, #15]
+1096		STR r4, [sp, #-4]!
+1097		BL f_placeMove
+1098		ADD sp, sp, #13
+1099		MOV r4, r0
+1100		STRB r4, [sp, #5]
+1101		LDR r4, [sp, #6]
+1102		STR r4, [sp, #-4]!
+1103		BL f_convertFromBoardToState
+1104		ADD sp, sp, #4
+1105		MOV r4, r0
+1106		STR r4, [sp, #1]
+1107		LDRSB r4, [sp, #19]
+1108		STRB r4, [sp, #-1]!
+1109		BL f_oppositeSymbol
+1110		ADD sp, sp, #1
+1111		MOV r4, r0
+1112		STRB r4, [sp]
+1113		LDRSB r4, [sp]
+1114		STRB r4, [sp, #-1]!
+1115		LDR r4, [sp, #2]
+1116		STR r4, [sp, #-4]!
+1117		BL f_generateNextStates
+1118		ADD sp, sp, #5
+1119		MOV r4, r0
+1120		STR r4, [sp, #1]
+1121		LDR r4, [sp, #1]
+1122		MOV r0, r4
+1123		ADD sp, sp, #10
+1124		POP {pc}
+1125		ADD sp, sp, #10
+1126		B L19
+1127	L18:
+1128		LDR r4, =0
+1129		MOV r0, r4
+1130		POP {pc}
+1131	L19:
+1132		POP {pc}
+1133		.ltorg
+1134	f_cloneBoard:
+1135		PUSH {lr}
+1136		SUB sp, sp, #5
+1137		BL f_allocateNewBoard
+1138		MOV r4, r0
+1139		STR r4, [sp, #1]
+1140		LDR r4, [sp, #1]
+1141		STR r4, [sp, #-4]!
+1142		LDR r4, [sp, #13]
+1143		STR r4, [sp, #-4]!
+1144		BL f_copyBoard
+1145		ADD sp, sp, #8
+1146		MOV r4, r0
+1147		STRB r4, [sp]
+1148		LDR r4, [sp, #1]
+1149		MOV r0, r4
+1150		ADD sp, sp, #5
+1151		POP {pc}
+1152		POP {pc}
+1153		.ltorg
+1154	f_copyBoard:
+1155		PUSH {lr}
+1156		SUB sp, sp, #33
+1157		LDR r4, [sp, #37]
+1158		MOV r0, r4
+1159		BL p_check_null_pointer
+1160		LDR r4, [r4]
+1161		LDR r4, [r4]
+1162		STR r4, [sp, #29]
+1163		LDR r4, [sp, #29]
+1164		MOV r0, r4
+1165		BL p_check_null_pointer
+1166		LDR r4, [r4]
+1167		LDR r4, [r4]
+1168		STR r4, [sp, #25]
+1169		LDR r4, [sp, #29]
+1170		MOV r0, r4
+1171		BL p_check_null_pointer
+1172		LDR r4, [r4, #4]
+1173		LDR r4, [r4]
+1174		STR r4, [sp, #21]
+1175		LDR r4, [sp, #37]
+1176		MOV r0, r4
+1177		BL p_check_null_pointer
+1178		LDR r4, [r4, #4]
+1179		LDR r4, [r4]
+1180		STR r4, [sp, #17]
+1181		LDR r4, [sp, #41]
+1182		MOV r0, r4
+1183		BL p_check_null_pointer
+1184		LDR r4, [r4]
+1185		LDR r4, [r4]
+1186		STR r4, [sp, #13]
+1187		LDR r4, [sp, #13]
+1188		MOV r0, r4
+1189		BL p_check_null_pointer
+1190		LDR r4, [r4]
+1191		LDR r4, [r4]
+1192		STR r4, [sp, #9]
+1193		LDR r4, [sp, #13]
+1194		MOV r0, r4
+1195		BL p_check_null_pointer
+1196		LDR r4, [r4, #4]
+1197		LDR r4, [r4]
+1198		STR r4, [sp, #5]
+1199		LDR r4, [sp, #41]
+1200		MOV r0, r4
+1201		BL p_check_null_pointer
+1202		LDR r4, [r4, #4]
+1203		LDR r4, [r4]
+1204		STR r4, [sp, #1]
+1205		LDR r4, [sp, #9]
+1206		STR r4, [sp, #-4]!
+1207		LDR r4, [sp, #29]
+1208		STR r4, [sp, #-4]!
+1209		BL f_copyRow
+1210		ADD sp, sp, #8
+1211		MOV r4, r0
+1212		STRB r4, [sp]
+1213		LDR r4, [sp, #5]
+1214		STR r4, [sp, #-4]!
+1215		LDR r4, [sp, #25]
+1216		STR r4, [sp, #-4]!
+1217		BL f_copyRow
+1218		ADD sp, sp, #8
+1219		MOV r4, r0
+1220		STRB r4, [sp]
+1221		LDR r4, [sp, #1]
+1222		STR r4, [sp, #-4]!
+1223		LDR r4, [sp, #21]
+1224		STR r4, [sp, #-4]!
+1225		BL f_copyRow
+1226		ADD sp, sp, #8
+1227		MOV r4, r0
+1228		STRB r4, [sp]
+1229		MOV r4, #1
+1230		MOV r0, r4
+1231		ADD sp, sp, #33
+1232		POP {pc}
+1233		POP {pc}
+1234		.ltorg
+1235	f_copyRow:
+1236		PUSH {lr}
+1237		SUB sp, sp, #8
+1238		LDR r4, [sp, #12]
+1239		MOV r0, r4
+1240		BL p_check_null_pointer
+1241		LDR r4, [r4]
+1242		LDR r4, [r4]
+1243		STR r4, [sp, #4]
+1244		LDR r4, [sp, #16]
+1245		MOV r0, r4
+1246		BL p_check_null_pointer
+1247		LDR r4, [r4]
+1248		LDR r4, [r4]
+1249		STR r4, [sp]
+1250		LDR r4, [sp, #4]
+1251		MOV r0, r4
+1252		BL p_check_null_pointer
+1253		LDR r4, [r4]
+1254		LDRSB r4, [r4]
+1255		LDR r5, [sp]
+1256		MOV r0, r5
+1257		BL p_check_null_pointer
+1258		LDR r5, [r5]
+1259		STRB r4, [r5]
+1260		LDR r4, [sp, #4]
+1261		MOV r0, r4
+1262		BL p_check_null_pointer
+1263		LDR r4, [r4, #4]
+1264		LDRSB r4, [r4]
+1265		LDR r5, [sp]
+1266		MOV r0, r5
+1267		BL p_check_null_pointer
+1268		LDR r5, [r5, #4]
+1269		STRB r4, [r5]
+1270		LDR r4, [sp, #12]
+1271		MOV r0, r4
+1272		BL p_check_null_pointer
+1273		LDR r4, [r4, #4]
+1274		LDRSB r4, [r4]
+1275		LDR r5, [sp, #16]
+1276		MOV r0, r5
+1277		BL p_check_null_pointer
+1278		LDR r5, [r5, #4]
+1279		STRB r4, [r5]
+1280		MOV r4, #1
+1281		MOV r0, r4
+1282		ADD sp, sp, #8
+1283		POP {pc}
+1284		POP {pc}
+1285		.ltorg
+1286	f_setValuesForAllStates:
+1287		PUSH {lr}
+1288		SUB sp, sp, #4
+1289		LDR r4, =0
+1290		STR r4, [sp]
+1291		LDR r4, [sp, #8]
+1292		LDR r5, =0
+1293		CMP r4, r5
+1294		MOVEQ r4, #1
+1295		MOVNE r4, #0
+1296		CMP r4, #0
+1297		BEQ L20
+1298		LDRSB r4, [sp, #13]
+1299		LDRSB r5, [sp, #12]
+1300		CMP r4, r5
+1301		MOVEQ r4, #1
+1302		MOVNE r4, #0
+1303		CMP r4, #0
+1304		BEQ L22
+1305		LDR r4, =101
+1306		STR r4, [sp]
+1307		B L23
+1308	L22:
+1309		LDR r4, =-101
+1310		STR r4, [sp]
+1311	L23:
+1312		B L21
+1313	L20:
+1314		SUB sp, sp, #14
+1315		LDR r4, [sp, #22]
+1316		MOV r0, r4
+1317		BL p_check_null_pointer
+1318		LDR r4, [r4]
+1319		LDR r4, [r4]
+1320		STR r4, [sp, #10]
+1321		LDR r4, [sp, #10]
+1322		MOV r0, r4
+1323		BL p_check_null_pointer
+1324		LDR r4, [r4]
+1325		LDR r4, [r4]
+1326		STR r4, [sp, #6]
+1327		LDR r4, [sp, #10]
+1328		MOV r0, r4
+1329		BL p_check_null_pointer
+1330		LDR r4, [r4, #4]
+1331		LDR r4, [r4]
+1332		STR r4, [sp, #2]
+1333		LDRSB r4, [sp, #27]
+1334		STRB r4, [sp, #-1]!
+1335		BL f_oppositeSymbol
+1336		ADD sp, sp, #1
+1337		MOV r4, r0
+1338		STRB r4, [sp, #1]
+1339		LDRSB r4, [sp, #1]
+1340		STRB r4, [sp, #-1]!
+1341		LDR r4, [sp, #7]
+1342		STR r4, [sp, #-4]!
+1343		BL f_hasWon
+1344		ADD sp, sp, #5
+1345		MOV r4, r0
+1346		STRB r4, [sp]
+1347		LDRSB r4, [sp]
+1348		CMP r4, #0
+1349		BEQ L24
+1350		LDRSB r4, [sp, #1]
+1351		LDRSB r5, [sp, #26]
+1352		CMP r4, r5
+1353		MOVEQ r4, #1
+1354		MOVNE r4, #0
+1355		CMP r4, #0
+1356		BEQ L26
+1357		LDR r4, =100
+1358		STR r4, [sp, #14]
+1359		B L27
+1360	L26:
+1361		LDR r4, =-100
+1362		STR r4, [sp, #14]
+1363	L27:
+1364		B L25
+1365	L24:
+1366		SUB sp, sp, #1
+1367		LDR r4, [sp, #7]
+1368		STR r4, [sp, #-4]!
+1369		BL f_containEmptyCell
+1370		ADD sp, sp, #4
+1371		MOV r4, r0
+1372		STRB r4, [sp]
+1373		LDRSB r4, [sp]
+1374		CMP r4, #0
+1375		BEQ L28
+1376		LDRSB r4, [sp, #2]
+1377		STRB r4, [sp, #-1]!
+1378		LDRSB r4, [sp, #28]
+1379		STRB r4, [sp, #-1]!
+1380		LDR r4, [sp, #5]
+1381		STR r4, [sp, #-4]!
+1382		BL f_calculateValuesFromNextStates
+1383		ADD sp, sp, #6
+1384		MOV r4, r0
+1385		STR r4, [sp, #15]
+1386		LDR r4, [sp, #15]
+1387		LDR r5, =100
+1388		CMP r4, r5
+1389		MOVEQ r4, #1
+1390		MOVNE r4, #0
+1391		CMP r4, #0
+1392		BEQ L30
+1393		LDR r4, =90
+1394		STR r4, [sp, #15]
+1395		B L31
+1396	L30:
+1397	L31:
+1398		B L29
+1399	L28:
+1400		LDR r4, =0
+1401		STR r4, [sp, #15]
+1402	L29:
+1403		ADD sp, sp, #1
+1404	L25:
+1405		LDR r4, [sp, #14]
+1406		LDR r5, [sp, #22]
+1407		MOV r0, r5
+1408		BL p_check_null_pointer
+1409		LDR r5, [r5, #4]
+1410		STR r4, [r5]
+1411		ADD sp, sp, #14
+1412	L21:
+1413		LDR r4, [sp]
+1414		MOV r0, r4
+1415		ADD sp, sp, #4
+1416		POP {pc}
+1417		POP {pc}
+1418		.ltorg
+1419	f_calculateValuesFromNextStates:
+1420		PUSH {lr}
+1421		SUB sp, sp, #32
+1422		LDR r4, [sp, #36]
+1423		MOV r0, r4
+1424		BL p_check_null_pointer
+1425		LDR r4, [r4]
+1426		LDR r4, [r4]
+1427		STR r4, [sp, #28]
+1428		LDR r4, [sp, #28]
+1429		MOV r0, r4
+1430		BL p_check_null_pointer
+1431		LDR r4, [r4]
+1432		LDR r4, [r4]
+1433		STR r4, [sp, #24]
+1434		LDR r4, [sp, #28]
+1435		MOV r0, r4
+1436		BL p_check_null_pointer
+1437		LDR r4, [r4, #4]
+1438		LDR r4, [r4]
+1439		STR r4, [sp, #20]
+1440		LDR r4, [sp, #36]
+1441		MOV r0, r4
+1442		BL p_check_null_pointer
+1443		LDR r4, [r4, #4]
+1444		LDR r4, [r4]
+1445		STR r4, [sp, #16]
+1446		LDRSB r4, [sp, #41]
+1447		STRB r4, [sp, #-1]!
+1448		LDRSB r4, [sp, #41]
+1449		STRB r4, [sp, #-1]!
+1450		LDR r4, [sp, #26]
+1451		STR r4, [sp, #-4]!
+1452		BL f_calculateValuesFromNextStatesRow
+1453		ADD sp, sp, #6
+1454		MOV r4, r0
+1455		STR r4, [sp, #12]
+1456		LDRSB r4, [sp, #41]
+1457		STRB r4, [sp, #-1]!
+1458		LDRSB r4, [sp, #41]
+1459		STRB r4, [sp, #-1]!
+1460		LDR r4, [sp, #22]
+1461		STR r4, [sp, #-4]!
+1462		BL f_calculateValuesFromNextStatesRow
+1463		ADD sp, sp, #6
+1464		MOV r4, r0
+1465		STR r4, [sp, #8]
+1466		LDRSB r4, [sp, #41]
+1467		STRB r4, [sp, #-1]!
+1468		LDRSB r4, [sp, #41]
+1469		STRB r4, [sp, #-1]!
+1470		LDR r4, [sp, #18]
+1471		STR r4, [sp, #-4]!
+1472		BL f_calculateValuesFromNextStatesRow
+1473		ADD sp, sp, #6
+1474		MOV r4, r0
+1475		STR r4, [sp, #4]
+1476		LDR r4, [sp, #4]
+1477		STR r4, [sp, #-4]!
+1478		LDR r4, [sp, #12]
+1479		STR r4, [sp, #-4]!
+1480		LDR r4, [sp, #20]
+1481		STR r4, [sp, #-4]!
+1482		LDRSB r4, [sp, #53]
+1483		STRB r4, [sp, #-1]!
+1484		LDRSB r4, [sp, #53]
+1485		STRB r4, [sp, #-1]!
+1486		BL f_combineValue
+1487		ADD sp, sp, #14
+1488		MOV r4, r0
+1489		STR r4, [sp]
+1490		LDR r4, [sp]
+1491		MOV r0, r4
+1492		ADD sp, sp, #32
+1493		POP {pc}
+1494		POP {pc}
+1495		.ltorg
+1496	f_calculateValuesFromNextStatesRow:
+1497		PUSH {lr}
+1498		SUB sp, sp, #32
+1499		LDR r4, [sp, #36]
+1500		MOV r0, r4
+1501		BL p_check_null_pointer
+1502		LDR r4, [r4]
+1503		LDR r4, [r4]
+1504		STR r4, [sp, #28]
+1505		LDR r4, [sp, #28]
+1506		MOV r0, r4
+1507		BL p_check_null_pointer
+1508		LDR r4, [r4]
+1509		LDR r4, [r4]
+1510		STR r4, [sp, #24]
+1511		LDR r4, [sp, #28]
+1512		MOV r0, r4
+1513		BL p_check_null_pointer
+1514		LDR r4, [r4, #4]
+1515		LDR r4, [r4]
+1516		STR r4, [sp, #20]
+1517		LDR r4, [sp, #36]
+1518		MOV r0, r4
+1519		BL p_check_null_pointer
+1520		LDR r4, [r4, #4]
+1521		LDR r4, [r4]
+1522		STR r4, [sp, #16]
+1523		LDRSB r4, [sp, #41]
+1524		STRB r4, [sp, #-1]!
+1525		LDRSB r4, [sp, #41]
+1526		STRB r4, [sp, #-1]!
+1527		LDR r4, [sp, #26]
+1528		STR r4, [sp, #-4]!
+1529		BL f_setValuesForAllStates
+1530		ADD sp, sp, #6
+1531		MOV r4, r0
+1532		STR r4, [sp, #12]
+1533		LDRSB r4, [sp, #41]
+1534		STRB r4, [sp, #-1]!
+1535		LDRSB r4, [sp, #41]
+1536		STRB r4, [sp, #-1]!
+1537		LDR r4, [sp, #22]
+1538		STR r4, [sp, #-4]!
+1539		BL f_setValuesForAllStates
+1540		ADD sp, sp, #6
+1541		MOV r4, r0
+1542		STR r4, [sp, #8]
+1543		LDRSB r4, [sp, #41]
+1544		STRB r4, [sp, #-1]!
+1545		LDRSB r4, [sp, #41]
+1546		STRB r4, [sp, #-1]!
+1547		LDR r4, [sp, #18]
+1548		STR r4, [sp, #-4]!
+1549		BL f_setValuesForAllStates
+1550		ADD sp, sp, #6
+1551		MOV r4, r0
+1552		STR r4, [sp, #4]
+1553		LDR r4, [sp, #4]
+1554		STR r4, [sp, #-4]!
+1555		LDR r4, [sp, #12]
+1556		STR r4, [sp, #-4]!
+1557		LDR r4, [sp, #20]
+1558		STR r4, [sp, #-4]!
+1559		LDRSB r4, [sp, #53]
+1560		STRB r4, [sp, #-1]!
+1561		LDRSB r4, [sp, #53]
+1562		STRB r4, [sp, #-1]!
+1563		BL f_combineValue
+1564		ADD sp, sp, #14
+1565		MOV r4, r0
+1566		STR r4, [sp]
+1567		LDR r4, [sp]
+1568		MOV r0, r4
+1569		ADD sp, sp, #32
+1570		POP {pc}
+1571		POP {pc}
+1572		.ltorg
+1573	f_combineValue:
+1574		PUSH {lr}
+1575		SUB sp, sp, #4
+1576		LDR r4, =0
+1577		STR r4, [sp]
+1578		LDRSB r4, [sp, #8]
+1579		LDRSB r5, [sp, #9]
+1580		CMP r4, r5
+1581		MOVEQ r4, #1
+1582		MOVNE r4, #0
+1583		CMP r4, #0
+1584		BEQ L32
+1585		LDR r4, [sp, #18]
+1586		STR r4, [sp, #-4]!
+1587		LDR r4, [sp, #18]
+1588		STR r4, [sp, #-4]!
+1589		LDR r4, [sp, #18]
+1590		STR r4, [sp, #-4]!
+1591		BL f_min3
+1592		ADD sp, sp, #12
+1593		MOV r4, r0
+1594		STR r4, [sp]
+1595		B L33
+1596	L32:
+1597		LDR r4, [sp, #18]
+1598		STR r4, [sp, #-4]!
+1599		LDR r4, [sp, #18]
+1600		STR r4, [sp, #-4]!
+1601		LDR r4, [sp, #18]
+1602		STR r4, [sp, #-4]!
+1603		BL f_max3
+1604		ADD sp, sp, #12
+1605		MOV r4, r0
+1606		STR r4, [sp]
+1607	L33:
+1608		LDR r4, [sp]
+1609		MOV r0, r4
+1610		ADD sp, sp, #4
+1611		POP {pc}
+1612		POP {pc}
+1613		.ltorg
+1614	f_min3:
+1615		PUSH {lr}
+1616		LDR r4, [sp, #4]
+1617		LDR r5, [sp, #8]
+1618		CMP r4, r5
+1619		MOVLT r4, #1
+1620		MOVGE r4, #0
+1621		CMP r4, #0
+1622		BEQ L34
+1623		LDR r4, [sp, #4]
+1624		LDR r5, [sp, #12]
+1625		CMP r4, r5
+1626		MOVLT r4, #1
+1627		MOVGE r4, #0
+1628		CMP r4, #0
+1629		BEQ L36
+1630		LDR r4, [sp, #4]
+1631		MOV r0, r4
+1632		POP {pc}
+1633		B L37
+1634	L36:
+1635		LDR r4, [sp, #12]
+1636		MOV r0, r4
+1637		POP {pc}
+1638	L37:
+1639		B L35
+1640	L34:
+1641		LDR r4, [sp, #8]
+1642		LDR r5, [sp, #12]
+1643		CMP r4, r5
+1644		MOVLT r4, #1
+1645		MOVGE r4, #0
+1646		CMP r4, #0
+1647		BEQ L38
+1648		LDR r4, [sp, #8]
+1649		MOV r0, r4
+1650		POP {pc}
+1651		B L39
+1652	L38:
+1653		LDR r4, [sp, #12]
+1654		MOV r0, r4
+1655		POP {pc}
+1656	L39:
+1657	L35:
+1658		POP {pc}
+1659		.ltorg
+1660	f_max3:
+1661		PUSH {lr}
+1662		LDR r4, [sp, #4]
+1663		LDR r5, [sp, #8]
+1664		CMP r4, r5
+1665		MOVGT r4, #1
+1666		MOVLE r4, #0
+1667		CMP r4, #0
+1668		BEQ L40
+1669		LDR r4, [sp, #4]
+1670		LDR r5, [sp, #12]
+1671		CMP r4, r5
+1672		MOVGT r4, #1
+1673		MOVLE r4, #0
+1674		CMP r4, #0
+1675		BEQ L42
+1676		LDR r4, [sp, #4]
+1677		MOV r0, r4
+1678		POP {pc}
+1679		B L43
+1680	L42:
+1681		LDR r4, [sp, #12]
+1682		MOV r0, r4
+1683		POP {pc}
+1684	L43:
+1685		B L41
+1686	L40:
+1687		LDR r4, [sp, #8]
+1688		LDR r5, [sp, #12]
+1689		CMP r4, r5
+1690		MOVGT r4, #1
+1691		MOVLE r4, #0
+1692		CMP r4, #0
+1693		BEQ L44
+1694		LDR r4, [sp, #8]
+1695		MOV r0, r4
+1696		POP {pc}
+1697		B L45
+1698	L44:
+1699		LDR r4, [sp, #12]
+1700		MOV r0, r4
+1701		POP {pc}
+1702	L45:
+1703	L41:
+1704		POP {pc}
+1705		.ltorg
+1706	f_destroyAI:
+1707		PUSH {lr}
+1708		SUB sp, sp, #9
+1709		LDR r4, [sp, #13]
+1710		MOV r0, r4
+1711		BL p_check_null_pointer
+1712		LDR r4, [r4]
+1713		LDR r4, [r4]
+1714		STR r4, [sp, #5]
+1715		LDR r4, [sp, #13]
+1716		MOV r0, r4
+1717		BL p_check_null_pointer
+1718		LDR r4, [r4, #4]
+1719		LDR r4, [r4]
+1720		STR r4, [sp, #1]
+1721		LDR r4, [sp, #1]
+1722		STR r4, [sp, #-4]!
+1723		BL f_deleteStateTreeRecursively
+1724		ADD sp, sp, #4
+1725		MOV r4, r0
+1726		STRB r4, [sp]
+1727		LDR r4, [sp, #5]
+1728		MOV r0, r4
+1729		BL p_free_pair
+1730		LDR r4, [sp, #13]
+1731		MOV r0, r4
+1732		BL p_free_pair
+1733		MOV r4, #1
+1734		MOV r0, r4
+1735		ADD sp, sp, #9
+1736		POP {pc}
+1737		POP {pc}
+1738		.ltorg
+1739	f_askForAMoveAI:
+1740		PUSH {lr}
+1741		SUB sp, sp, #21
+1742		LDR r4, [sp, #31]
+1743		MOV r0, r4
+1744		BL p_check_null_pointer
+1745		LDR r4, [r4]
+1746		LDR r4, [r4]
+1747		STR r4, [sp, #17]
+1748		LDR r4, [sp, #31]
+1749		MOV r0, r4
+1750		BL p_check_null_pointer
+1751		LDR r4, [r4, #4]
+1752		LDR r4, [r4]
+1753		STR r4, [sp, #13]
+1754		LDR r4, [sp, #13]
+1755		MOV r0, r4
+1756		BL p_check_null_pointer
+1757		LDR r4, [r4]
+1758		LDR r4, [r4]
+1759		STR r4, [sp, #9]
+1760		LDR r4, [sp, #9]
+1761		MOV r0, r4
+1762		BL p_check_null_pointer
+1763		LDR r4, [r4, #4]
+1764		LDR r4, [r4]
+1765		STR r4, [sp, #5]
+1766		LDR r4, [sp, #13]
+1767		MOV r0, r4
+1768		BL p_check_null_pointer
+1769		LDR r4, [r4, #4]
+1770		LDR r4, [r4]
+1771		STR r4, [sp, #1]
+1772		LDR r4, [sp, #35]
+1773		STR r4, [sp, #-4]!
+1774		LDR r4, [sp, #5]
+1775		STR r4, [sp, #-4]!
+1776		LDR r4, [sp, #13]
+1777		STR r4, [sp, #-4]!
+1778		BL f_findTheBestMove
+1779		ADD sp, sp, #12
+1780		MOV r4, r0
+1781		STRB r4, [sp]
+1782		LDR r4, =msg_30
+1783		MOV r0, r4
+1784		BL p_print_string
+1785		BL p_print_ln
+1786		ADD r4, sp, #35
+1787		LDR r5, =1
+1788		LDR r4, [r4]
+1789		MOV r0, r5
+1790		MOV r1, r4
+1791		BL p_check_array_bounds
+1792		ADD r4, r4, #4
+1793		ADD r4, r4, r5, LSL #2
+1794		LDR r4, [r4]
+1795		STR r4, [sp, #-4]!
+1796		ADD r4, sp, #39
+1797		LDR r5, =0
+1798		LDR r4, [r4]
+1799		MOV r0, r5
+1800		MOV r1, r4
+1801		BL p_check_array_bounds
+1802		ADD r4, r4, #4
+1803		ADD r4, r4, r5, LSL #2
+1804		LDR r4, [r4]
+1805		STR r4, [sp, #-4]!
+1806		LDR r4, [sp, #13]
+1807		STR r4, [sp, #-4]!
+1808		BL f_deleteAllOtherChildren
+1809		ADD sp, sp, #12
+1810		MOV r4, r0
+1811		LDR r5, [sp, #31]
+1812		MOV r0, r5
+1813		BL p_check_null_pointer
+1814		LDR r5, [r5, #4]
+1815		STR r4, [r5]
+1816		LDR r4, [sp, #13]
+1817		STR r4, [sp, #-4]!
+1818		BL f_deleteThisStateOnly
+1819		ADD sp, sp, #4
+1820		MOV r4, r0
+1821		STRB r4, [sp]
+1822		MOV r4, #1
+1823		MOV r0, r4
+1824		ADD sp, sp, #21
+1825		POP {pc}
+1826		POP {pc}
+1827		.ltorg
+1828	f_findTheBestMove:
+1829		PUSH {lr}
+1830		SUB sp, sp, #1
+1831		LDR r4, [sp, #9]
+1832		LDR r5, =90
+1833		CMP r4, r5
+1834		MOVEQ r4, #1
+1835		MOVNE r4, #0
+1836		CMP r4, #0
+1837		BEQ L46
+1838		SUB sp, sp, #1
+1839		LDR r4, [sp, #14]
+1840		STR r4, [sp, #-4]!
+1841		LDR r4, =100
+1842		STR r4, [sp, #-4]!
+1843		LDR r4, [sp, #14]
+1844		STR r4, [sp, #-4]!
+1845		BL f_findMoveWithGivenValue
+1846		ADD sp, sp, #12
+1847		MOV r4, r0
+1848		STRB r4, [sp]
+1849		LDRSB r4, [sp]
+1850		CMP r4, #0
+1851		BEQ L48
+1852		MOV r4, #1
+1853		MOV r0, r4
+1854		ADD sp, sp, #2
+1855		POP {pc}
+1856		B L49
+1857	L48:
+1858	L49:
+1859		ADD sp, sp, #1
+1860		B L47
+1861	L46:
+1862	L47:
+1863		LDR r4, [sp, #13]
+1864		STR r4, [sp, #-4]!
+1865		LDR r4, [sp, #13]
+1866		STR r4, [sp, #-4]!
+1867		LDR r4, [sp, #13]
+1868		STR r4, [sp, #-4]!
+1869		BL f_findMoveWithGivenValue
+1870		ADD sp, sp, #12
+1871		MOV r4, r0
+1872		STRB r4, [sp]
+1873		LDRSB r4, [sp]
+1874		CMP r4, #0
+1875		BEQ L50
+1876		MOV r4, #1
+1877		MOV r0, r4
+1878		ADD sp, sp, #1
+1879		POP {pc}
+1880		B L51
+1881	L50:
+1882		LDR r4, =msg_31
+1883		MOV r0, r4
+1884		BL p_print_string
+1885		BL p_print_ln
+1886		LDR r4, =-1
+1887		MOV r0, r4
+1888		BL exit
+1889	L51:
+1890		POP {pc}
+1891		.ltorg
+1892	f_findMoveWithGivenValue:
+1893		PUSH {lr}
+1894		SUB sp, sp, #17
+1895		LDR r4, [sp, #21]
+1896		MOV r0, r4
+1897		BL p_check_null_pointer
+1898		LDR r4, [r4]
+1899		LDR r4, [r4]
+1900		STR r4, [sp, #13]
+1901		LDR r4, [sp, #13]
+1902		MOV r0, r4
+1903		BL p_check_null_pointer
+1904		LDR r4, [r4]
+1905		LDR r4, [r4]
+1906		STR r4, [sp, #9]
+1907		LDR r4, [sp, #13]
+1908		MOV r0, r4
+1909		BL p_check_null_pointer
+1910		LDR r4, [r4, #4]
+1911		LDR r4, [r4]
+1912		STR r4, [sp, #5]
+1913		LDR r4, [sp, #21]
+1914		MOV r0, r4
+1915		BL p_check_null_pointer
+1916		LDR r4, [r4, #4]
+1917		LDR r4, [r4]
+1918		STR r4, [sp, #1]
+1919		LDR r4, [sp, #29]
+1920		STR r4, [sp, #-4]!
+1921		LDR r4, [sp, #29]
+1922		STR r4, [sp, #-4]!
+1923		LDR r4, [sp, #17]
+1924		STR r4, [sp, #-4]!
+1925		BL f_findMoveWithGivenValueRow
+1926		ADD sp, sp, #12
+1927		MOV r4, r0
+1928		STRB r4, [sp]
+1929		LDRSB r4, [sp]
+1930		CMP r4, #0
+1931		BEQ L52
+1932		LDR r4, =1
+1933		ADD r5, sp, #29
+1934		LDR r6, =0
+1935		LDR r5, [r5]
+1936		MOV r0, r6
+1937		MOV r1, r5
+1938		BL p_check_array_bounds
+1939		ADD r5, r5, #4
+1940		ADD r5, r5, r6, LSL #2
+1941		STR r4, [r5]
+1942		B L53
+1943	L52:
+1944		LDR r4, [sp, #29]
+1945		STR r4, [sp, #-4]!
+1946		LDR r4, [sp, #29]
+1947		STR r4, [sp, #-4]!
+1948		LDR r4, [sp, #13]
+1949		STR r4, [sp, #-4]!
+1950		BL f_findMoveWithGivenValueRow
+1951		ADD sp, sp, #12
+1952		MOV r4, r0
+1953		STRB r4, [sp]
+1954		LDRSB r4, [sp]
+1955		CMP r4, #0
+1956		BEQ L54
+1957		LDR r4, =2
+1958		ADD r6, sp, #29
+1959		LDR r7, =0
+1960		LDR r6, [r6]
+1961		MOV r0, r7
+1962		MOV r1, r6
+1963		BL p_check_array_bounds
+1964		ADD r6, r6, #4
+1965		ADD r6, r6, r7, LSL #2
+1966		STR r4, [r6]
+1967		B L55
+1968	L54:
+1969		LDR r4, [sp, #29]
+1970		STR r4, [sp, #-4]!
+1971		LDR r4, [sp, #29]
+1972		STR r4, [sp, #-4]!
+1973		LDR r4, [sp, #9]
+1974		STR r4, [sp, #-4]!
+1975		BL f_findMoveWithGivenValueRow
+1976		ADD sp, sp, #12
+1977		MOV r4, r0
+1978		STRB r4, [sp]
+1979		LDRSB r4, [sp]
+1980		CMP r4, #0
+1981		BEQ L56
+1982		LDR r4, =3
+1983		ADD r7, sp, #29
+1984		LDR r8, =0
+1985		LDR r7, [r7]
+1986		MOV r0, r8
+1987		MOV r1, r7
+1988		BL p_check_array_bounds
+1989		ADD r7, r7, #4
+1990		ADD r7, r7, r8, LSL #2
+1991		STR r4, [r7]
+1992		B L57
+1993	L56:
+1994		MOV r4, #0
+1995		MOV r0, r4
+1996		ADD sp, sp, #17
+1997		POP {pc}
+1998	L57:
+1999	L55:
+2000	L53:
+2001		MOV r4, #1
+2002		MOV r0, r4
+2003		ADD sp, sp, #17
+2004		POP {pc}
+2005		POP {pc}
+2006		.ltorg
+2007	f_findMoveWithGivenValueRow:
+2008		PUSH {lr}
+2009		SUB sp, sp, #17
+2010		LDR r4, [sp, #21]
+2011		MOV r0, r4
+2012		BL p_check_null_pointer
+2013		LDR r4, [r4]
+2014		LDR r4, [r4]
+2015		STR r4, [sp, #13]
+2016		LDR r4, [sp, #13]
+2017		MOV r0, r4
+2018		BL p_check_null_pointer
+2019		LDR r4, [r4]
+2020		LDR r4, [r4]
+2021		STR r4, [sp, #9]
+2022		LDR r4, [sp, #13]
+2023		MOV r0, r4
+2024		BL p_check_null_pointer
+2025		LDR r4, [r4, #4]
+2026		LDR r4, [r4]
+2027		STR r4, [sp, #5]
+2028		LDR r4, [sp, #21]
+2029		MOV r0, r4
+2030		BL p_check_null_pointer
+2031		LDR r4, [r4, #4]
+2032		LDR r4, [r4]
+2033		STR r4, [sp, #1]
+2034		LDR r4, [sp, #25]
+2035		STR r4, [sp, #-4]!
+2036		LDR r4, [sp, #13]
+2037		STR r4, [sp, #-4]!
+2038		BL f_hasGivenStateValue
+2039		ADD sp, sp, #8
+2040		MOV r4, r0
+2041		STRB r4, [sp]
+2042		LDRSB r4, [sp]
+2043		CMP r4, #0
+2044		BEQ L58
+2045		LDR r4, =1
+2046		ADD r5, sp, #29
+2047		LDR r6, =1
+2048		LDR r5, [r5]
+2049		MOV r0, r6
+2050		MOV r1, r5
+2051		BL p_check_array_bounds
+2052		ADD r5, r5, #4
+2053		ADD r5, r5, r6, LSL #2
+2054		STR r4, [r5]
+2055		B L59
+2056	L58:
+2057		LDR r4, [sp, #25]
+2058		STR r4, [sp, #-4]!
+2059		LDR r4, [sp, #9]
+2060		STR r4, [sp, #-4]!
+2061		BL f_hasGivenStateValue
+2062		ADD sp, sp, #8
+2063		MOV r4, r0
+2064		STRB r4, [sp]
+2065		LDRSB r4, [sp]
+2066		CMP r4, #0
+2067		BEQ L60
+2068		LDR r4, =2
+2069		ADD r6, sp, #29
+2070		LDR r7, =1
+2071		LDR r6, [r6]
+2072		MOV r0, r7
+2073		MOV r1, r6
+2074		BL p_check_array_bounds
+2075		ADD r6, r6, #4
+2076		ADD r6, r6, r7, LSL #2
+2077		STR r4, [r6]
+2078		B L61
+2079	L60:
+2080		LDR r4, [sp, #25]
+2081		STR r4, [sp, #-4]!
+2082		LDR r4, [sp, #5]
+2083		STR r4, [sp, #-4]!
+2084		BL f_hasGivenStateValue
+2085		ADD sp, sp, #8
+2086		MOV r4, r0
+2087		STRB r4, [sp]
+2088		LDRSB r4, [sp]
+2089		CMP r4, #0
+2090		BEQ L62
+2091		LDR r4, =3
+2092		ADD r7, sp, #29
+2093		LDR r8, =1
+2094		LDR r7, [r7]
+2095		MOV r0, r8
+2096		MOV r1, r7
+2097		BL p_check_array_bounds
+2098		ADD r7, r7, #4
+2099		ADD r7, r7, r8, LSL #2
+2100		STR r4, [r7]
+2101		B L63
+2102	L62:
+2103		MOV r4, #0
+2104		MOV r0, r4
+2105		ADD sp, sp, #17
+2106		POP {pc}
+2107	L63:
+2108	L61:
+2109	L59:
+2110		MOV r4, #1
+2111		MOV r0, r4
+2112		ADD sp, sp, #17
+2113		POP {pc}
+2114		POP {pc}
+2115		.ltorg
+2116	f_hasGivenStateValue:
+2117		PUSH {lr}
+2118		LDR r4, [sp, #4]
+2119		LDR r5, =0
+2120		CMP r4, r5
+2121		MOVEQ r4, #1
+2122		MOVNE r4, #0
+2123		CMP r4, #0
+2124		BEQ L64
+2125		MOV r4, #0
+2126		MOV r0, r4
+2127		POP {pc}
+2128		B L65
+2129	L64:
+2130		SUB sp, sp, #4
+2131		LDR r4, [sp, #8]
+2132		MOV r0, r4
+2133		BL p_check_null_pointer
+2134		LDR r4, [r4, #4]
+2135		LDR r4, [r4]
+2136		STR r4, [sp]
+2137		LDR r4, [sp]
+2138		LDR r5, [sp, #12]
+2139		CMP r4, r5
+2140		MOVEQ r4, #1
+2141		MOVNE r4, #0
+2142		MOV r0, r4
+2143		ADD sp, sp, #4
+2144		POP {pc}
+2145		ADD sp, sp, #4
+2146	L65:
+2147		POP {pc}
+2148		.ltorg
+2149	f_notifyMoveAI:
+2150		PUSH {lr}
+2151		SUB sp, sp, #21
+2152		LDR r4, [sp, #31]
+2153		MOV r0, r4
+2154		BL p_check_null_pointer
+2155		LDR r4, [r4]
+2156		LDR r4, [r4]
+2157		STR r4, [sp, #17]
+2158		LDR r4, [sp, #31]
+2159		MOV r0, r4
+2160		BL p_check_null_pointer
+2161		LDR r4, [r4, #4]
+2162		LDR r4, [r4]
+2163		STR r4, [sp, #13]
+2164		LDR r4, [sp, #13]
+2165		MOV r0, r4
+2166		BL p_check_null_pointer
+2167		LDR r4, [r4]
+2168		LDR r4, [r4]
+2169		STR r4, [sp, #9]
+2170		LDR r4, [sp, #9]
+2171		MOV r0, r4
+2172		BL p_check_null_pointer
+2173		LDR r4, [r4]
+2174		LDR r4, [r4]
+2175		STR r4, [sp, #5]
+2176		LDR r4, [sp, #9]
+2177		MOV r0, r4
+2178		BL p_check_null_pointer
+2179		LDR r4, [r4, #4]
+2180		LDR r4, [r4]
+2181		STR r4, [sp, #1]
+2182		LDR r4, =msg_32
+2183		MOV r0, r4
+2184		BL p_print_string
+2185		BL p_print_ln
+2186		LDR r4, [sp, #39]
+2187		STR r4, [sp, #-4]!
+2188		LDR r4, [sp, #39]
+2189		STR r4, [sp, #-4]!
+2190		LDR r4, [sp, #9]
+2191		STR r4, [sp, #-4]!
+2192		BL f_deleteAllOtherChildren
+2193		ADD sp, sp, #12
+2194		MOV r4, r0
+2195		LDR r5, [sp, #31]
+2196		MOV r0, r5
+2197		BL p_check_null_pointer
+2198		LDR r5, [r5, #4]
+2199		STR r4, [r5]
+2200		LDR r4, [sp, #13]
+2201		STR r4, [sp, #-4]!
+2202		BL f_deleteThisStateOnly
+2203		ADD sp, sp, #4
+2204		MOV r4, r0
+2205		STRB r4, [sp]
+2206		MOV r4, #1
+2207		MOV r0, r4
+2208		ADD sp, sp, #21
+2209		POP {pc}
+2210		POP {pc}
+2211		.ltorg
+2212	f_deleteAllOtherChildren:
+2213		PUSH {lr}
+2214		SUB sp, sp, #33
+2215		LDR r4, [sp, #37]
+2216		MOV r0, r4
+2217		BL p_check_null_pointer
+2218		LDR r4, [r4]
+2219		LDR r4, [r4]
+2220		STR r4, [sp, #29]
+2221		LDR r4, [sp, #29]
+2222		MOV r0, r4
+2223		BL p_check_null_pointer
+2224		LDR r4, [r4]
+2225		LDR r4, [r4]
+2226		STR r4, [sp, #25]
+2227		LDR r4, [sp, #29]
+2228		MOV r0, r4
+2229		BL p_check_null_pointer
+2230		LDR r4, [r4, #4]
+2231		LDR r4, [r4]
+2232		STR r4, [sp, #21]
+2233		LDR r4, [sp, #37]
+2234		MOV r0, r4
+2235		BL p_check_null_pointer
+2236		LDR r4, [r4, #4]
+2237		LDR r4, [r4]
+2238		STR r4, [sp, #17]
+2239		LDR r4, =0
+2240		STR r4, [sp, #13]
+2241		LDR r4, =0
+2242		STR r4, [sp, #9]
+2243		LDR r4, =0
+2244		STR r4, [sp, #5]
+2245		LDR r4, [sp, #41]
+2246		LDR r5, =1
+2247		CMP r4, r5
+2248		MOVEQ r4, #1
+2249		MOVNE r4, #0
+2250		CMP r4, #0
+2251		BEQ L66
+2252		LDR r4, [sp, #25]
+2253		STR r4, [sp, #13]
+2254		LDR r4, [sp, #21]
+2255		STR r4, [sp, #9]
+2256		LDR r4, [sp, #17]
+2257		STR r4, [sp, #5]
+2258		B L67
+2259	L66:
+2260		LDR r4, [sp, #25]
+2261		STR r4, [sp, #9]
+2262		LDR r4, [sp, #41]
+2263		LDR r5, =2
+2264		CMP r4, r5
+2265		MOVEQ r4, #1
+2266		MOVNE r4, #0
+2267		CMP r4, #0
+2268		BEQ L68
+2269		LDR r4, [sp, #21]
+2270		STR r4, [sp, #13]
+2271		LDR r4, [sp, #17]
+2272		STR r4, [sp, #5]
+2273		B L69
+2274	L68:
+2275		LDR r4, [sp, #17]
+2276		STR r4, [sp, #13]
+2277		LDR r4, [sp, #21]
+2278		STR r4, [sp, #5]
+2279	L69:
+2280	L67:
+2281		LDR r4, [sp, #45]
+2282		STR r4, [sp, #-4]!
+2283		LDR r4, [sp, #17]
+2284		STR r4, [sp, #-4]!
+2285		BL f_deleteAllOtherChildrenRow
+2286		ADD sp, sp, #8
+2287		MOV r4, r0
+2288		STR r4, [sp, #1]
+2289		LDR r4, [sp, #9]
+2290		STR r4, [sp, #-4]!
+2291		BL f_deleteChildrenStateRecursivelyRow
+2292		ADD sp, sp, #4
+2293		MOV r4, r0
+2294		STRB r4, [sp]
+2295		LDR r4, [sp, #5]
+2296		STR r4, [sp, #-4]!
+2297		BL f_deleteChildrenStateRecursivelyRow
+2298		ADD sp, sp, #4
+2299		MOV r4, r0
+2300		STRB r4, [sp]
+2301		LDR r4, [sp, #1]
+2302		MOV r0, r4
+2303		ADD sp, sp, #33
+2304		POP {pc}
+2305		POP {pc}
+2306		.ltorg
+2307	f_deleteAllOtherChildrenRow:
+2308		PUSH {lr}
+2309		SUB sp, sp, #29
+2310		LDR r4, [sp, #33]
+2311		MOV r0, r4
+2312		BL p_check_null_pointer
+2313		LDR r4, [r4]
+2314		LDR r4, [r4]
+2315		STR r4, [sp, #25]
+2316		LDR r4, [sp, #25]
+2317		MOV r0, r4
+2318		BL p_check_null_pointer
+2319		LDR r4, [r4]
+2320		LDR r4, [r4]
+2321		STR r4, [sp, #21]
+2322		LDR r4, [sp, #25]
+2323		MOV r0, r4
+2324		BL p_check_null_pointer
+2325		LDR r4, [r4, #4]
+2326		LDR r4, [r4]
+2327		STR r4, [sp, #17]
+2328		LDR r4, [sp, #33]
+2329		MOV r0, r4
+2330		BL p_check_null_pointer
+2331		LDR r4, [r4, #4]
+2332		LDR r4, [r4]
+2333		STR r4, [sp, #13]
+2334		LDR r4, =0
+2335		STR r4, [sp, #9]
+2336		LDR r4, =0
+2337		STR r4, [sp, #5]
+2338		LDR r4, =0
+2339		STR r4, [sp, #1]
+2340		LDR r4, [sp, #37]
+2341		LDR r5, =1
+2342		CMP r4, r5
+2343		MOVEQ r4, #1
+2344		MOVNE r4, #0
+2345		CMP r4, #0
+2346		BEQ L70
+2347		LDR r4, [sp, #21]
+2348		STR r4, [sp, #9]
+2349		LDR r4, [sp, #17]
+2350		STR r4, [sp, #5]
+2351		LDR r4, [sp, #13]
+2352		STR r4, [sp, #1]
+2353		B L71
+2354	L70:
+2355		LDR r4, [sp, #21]
+2356		STR r4, [sp, #5]
+2357		LDR r4, [sp, #37]
+2358		LDR r5, =2
+2359		CMP r4, r5
+2360		MOVEQ r4, #1
+2361		MOVNE r4, #0
+2362		CMP r4, #0
+2363		BEQ L72
+2364		LDR r4, [sp, #17]
+2365		STR r4, [sp, #9]
+2366		LDR r4, [sp, #13]
+2367		STR r4, [sp, #1]
+2368		B L73
+2369	L72:
+2370		LDR r4, [sp, #13]
+2371		STR r4, [sp, #9]
+2372		LDR r4, [sp, #17]
+2373		STR r4, [sp, #1]
+2374	L73:
+2375	L71:
+2376		LDR r4, [sp, #5]
+2377		STR r4, [sp, #-4]!
+2378		BL f_deleteStateTreeRecursively
+2379		ADD sp, sp, #4
+2380		MOV r4, r0
+2381		STRB r4, [sp]
+2382		LDR r4, [sp, #1]
+2383		STR r4, [sp, #-4]!
+2384		BL f_deleteStateTreeRecursively
+2385		ADD sp, sp, #4
+2386		MOV r4, r0
+2387		STRB r4, [sp]
+2388		LDR r4, [sp, #9]
+2389		MOV r0, r4
+2390		ADD sp, sp, #29
+2391		POP {pc}
+2392		POP {pc}
+2393		.ltorg
+2394	f_deleteStateTreeRecursively:
+2395		PUSH {lr}
+2396		LDR r4, [sp, #4]
+2397		LDR r5, =0
+2398		CMP r4, r5
+2399		MOVEQ r4, #1
+2400		MOVNE r4, #0
+2401		CMP r4, #0
+2402		BEQ L74
+2403		MOV r4, #1
+2404		MOV r0, r4
+2405		POP {pc}
+2406		B L75
+2407	L74:
+2408		SUB sp, sp, #13
+2409		LDR r4, [sp, #17]
+2410		MOV r0, r4
+2411		BL p_check_null_pointer
+2412		LDR r4, [r4]
+2413		LDR r4, [r4]
+2414		STR r4, [sp, #9]
+2415		LDR r4, [sp, #9]
+2416		MOV r0, r4
+2417		BL p_check_null_pointer
+2418		LDR r4, [r4]
+2419		LDR r4, [r4]
+2420		STR r4, [sp, #5]
+2421		LDR r4, [sp, #9]
+2422		MOV r0, r4
+2423		BL p_check_null_pointer
+2424		LDR r4, [r4, #4]
+2425		LDR r4, [r4]
+2426		STR r4, [sp, #1]
+2427		LDR r4, [sp, #1]
+2428		STR r4, [sp, #-4]!
+2429		BL f_deleteChildrenStateRecursively
+2430		ADD sp, sp, #4
+2431		MOV r4, r0
+2432		STRB r4, [sp]
+2433		LDR r4, [sp, #17]
+2434		STR r4, [sp, #-4]!
+2435		BL f_deleteThisStateOnly
+2436		ADD sp, sp, #4
+2437		MOV r4, r0
+2438		STRB r4, [sp]
+2439		MOV r4, #1
+2440		MOV r0, r4
+2441		ADD sp, sp, #13
+2442		POP {pc}
+2443		ADD sp, sp, #13
+2444	L75:
+2445		POP {pc}
+2446		.ltorg
+2447	f_deleteThisStateOnly:
+2448		PUSH {lr}
+2449		SUB sp, sp, #13
+2450		LDR r4, [sp, #17]
+2451		MOV r0, r4
+2452		BL p_check_null_pointer
+2453		LDR r4, [r4]
+2454		LDR r4, [r4]
+2455		STR r4, [sp, #9]
+2456		LDR r4, [sp, #9]
+2457		MOV r0, r4
+2458		BL p_check_null_pointer
+2459		LDR r4, [r4]
+2460		LDR r4, [r4]
+2461		STR r4, [sp, #5]
+2462		LDR r4, [sp, #9]
+2463		MOV r0, r4
+2464		BL p_check_null_pointer
+2465		LDR r4, [r4, #4]
+2466		LDR r4, [r4]
+2467		STR r4, [sp, #1]
+2468		LDR r4, [sp, #5]
+2469		STR r4, [sp, #-4]!
+2470		BL f_freeBoard
+2471		ADD sp, sp, #4
+2472		MOV r4, r0
+2473		STRB r4, [sp]
+2474		LDR r4, [sp, #1]
+2475		STR r4, [sp, #-4]!
+2476		BL f_freePointers
+2477		ADD sp, sp, #4
+2478		MOV r4, r0
+2479		STRB r4, [sp]
+2480		LDR r4, [sp, #9]
+2481		MOV r0, r4
+2482		BL p_free_pair
+2483		LDR r4, [sp, #17]
+2484		MOV r0, r4
+2485		BL p_free_pair
+2486		MOV r4, #1
+2487		MOV r0, r4
+2488		ADD sp, sp, #13
+2489		POP {pc}
+2490		POP {pc}
+2491		.ltorg
+2492	f_freePointers:
+2493		PUSH {lr}
+2494		SUB sp, sp, #17
+2495		LDR r4, [sp, #21]
+2496		MOV r0, r4
+2497		BL p_check_null_pointer
+2498		LDR r4, [r4]
+2499		LDR r4, [r4]
+2500		STR r4, [sp, #13]
+2501		LDR r4, [sp, #13]
+2502		MOV r0, r4
+2503		BL p_check_null_pointer
+2504		LDR r4, [r4]
+2505		LDR r4, [r4]
+2506		STR r4, [sp, #9]
+2507		LDR r4, [sp, #13]
+2508		MOV r0, r4
+2509		BL p_check_null_pointer
+2510		LDR r4, [r4, #4]
+2511		LDR r4, [r4]
+2512		STR r4, [sp, #5]
+2513		LDR r4, [sp, #21]
+2514		MOV r0, r4
+2515		BL p_check_null_pointer
+2516		LDR r4, [r4, #4]
+2517		LDR r4, [r4]
+2518		STR r4, [sp, #1]
+2519		LDR r4, [sp, #9]
+2520		STR r4, [sp, #-4]!
+2521		BL f_freePointersRow
+2522		ADD sp, sp, #4
+2523		MOV r4, r0
+2524		STRB r4, [sp]
+2525		LDR r4, [sp, #5]
+2526		STR r4, [sp, #-4]!
+2527		BL f_freePointersRow
+2528		ADD sp, sp, #4
+2529		MOV r4, r0
+2530		STRB r4, [sp]
+2531		LDR r4, [sp, #1]
+2532		STR r4, [sp, #-4]!
+2533		BL f_freePointersRow
+2534		ADD sp, sp, #4
+2535		MOV r4, r0
+2536		STRB r4, [sp]
+2537		LDR r4, [sp, #13]
+2538		MOV r0, r4
+2539		BL p_free_pair
+2540		LDR r4, [sp, #21]
+2541		MOV r0, r4
+2542		BL p_free_pair
+2543		MOV r4, #1
+2544		MOV r0, r4
+2545		ADD sp, sp, #17
+2546		POP {pc}
+2547		POP {pc}
+2548		.ltorg
+2549	f_freePointersRow:
+2550		PUSH {lr}
+2551		SUB sp, sp, #4
+2552		LDR r4, [sp, #8]
+2553		MOV r0, r4
+2554		BL p_check_null_pointer
+2555		LDR r4, [r4]
+2556		LDR r4, [r4]
+2557		STR r4, [sp]
+2558		LDR r4, [sp]
+2559		MOV r0, r4
+2560		BL p_free_pair
+2561		LDR r4, [sp, #8]
+2562		MOV r0, r4
+2563		BL p_free_pair
+2564		MOV r4, #1
+2565		MOV r0, r4
+2566		ADD sp, sp, #4
+2567		POP {pc}
+2568		POP {pc}
+2569		.ltorg
+2570	f_deleteChildrenStateRecursively:
+2571		PUSH {lr}
+2572		SUB sp, sp, #17
+2573		LDR r4, [sp, #21]
+2574		MOV r0, r4
+2575		BL p_check_null_pointer
+2576		LDR r4, [r4]
+2577		LDR r4, [r4]
+2578		STR r4, [sp, #13]
+2579		LDR r4, [sp, #13]
+2580		MOV r0, r4
+2581		BL p_check_null_pointer
+2582		LDR r4, [r4]
+2583		LDR r4, [r4]
+2584		STR r4, [sp, #9]
+2585		LDR r4, [sp, #13]
+2586		MOV r0, r4
+2587		BL p_check_null_pointer
+2588		LDR r4, [r4, #4]
+2589		LDR r4, [r4]
+2590		STR r4, [sp, #5]
+2591		LDR r4, [sp, #21]
+2592		MOV r0, r4
+2593		BL p_check_null_pointer
+2594		LDR r4, [r4, #4]
+2595		LDR r4, [r4]
+2596		STR r4, [sp, #1]
+2597		LDR r4, [sp, #9]
+2598		STR r4, [sp, #-4]!
+2599		BL f_deleteChildrenStateRecursivelyRow
+2600		ADD sp, sp, #4
+2601		MOV r4, r0
+2602		STRB r4, [sp]
+2603		LDR r4, [sp, #5]
+2604		STR r4, [sp, #-4]!
+2605		BL f_deleteChildrenStateRecursivelyRow
+2606		ADD sp, sp, #4
+2607		MOV r4, r0
+2608		STRB r4, [sp]
+2609		LDR r4, [sp, #1]
+2610		STR r4, [sp, #-4]!
+2611		BL f_deleteChildrenStateRecursivelyRow
+2612		ADD sp, sp, #4
+2613		MOV r4, r0
+2614		STRB r4, [sp]
+2615		MOV r4, #1
+2616		MOV r0, r4
+2617		ADD sp, sp, #17
+2618		POP {pc}
+2619		POP {pc}
+2620		.ltorg
+2621	f_deleteChildrenStateRecursivelyRow:
+2622		PUSH {lr}
+2623		SUB sp, sp, #17
+2624		LDR r4, [sp, #21]
+2625		MOV r0, r4
+2626		BL p_check_null_pointer
+2627		LDR r4, [r4]
+2628		LDR r4, [r4]
+2629		STR r4, [sp, #13]
+2630		LDR r4, [sp, #13]
+2631		MOV r0, r4
+2632		BL p_check_null_pointer
+2633		LDR r4, [r4]
+2634		LDR r4, [r4]
+2635		STR r4, [sp, #9]
+2636		LDR r4, [sp, #13]
+2637		MOV r0, r4
+2638		BL p_check_null_pointer
+2639		LDR r4, [r4, #4]
+2640		LDR r4, [r4]
+2641		STR r4, [sp, #5]
+2642		LDR r4, [sp, #21]
+2643		MOV r0, r4
+2644		BL p_check_null_pointer
+2645		LDR r4, [r4, #4]
+2646		LDR r4, [r4]
+2647		STR r4, [sp, #1]
+2648		LDR r4, [sp, #9]
+2649		STR r4, [sp, #-4]!
+2650		BL f_deleteStateTreeRecursively
+2651		ADD sp, sp, #4
+2652		MOV r4, r0
+2653		STRB r4, [sp]
+2654		LDR r4, [sp, #5]
+2655		STR r4, [sp, #-4]!
+2656		BL f_deleteStateTreeRecursively
+2657		ADD sp, sp, #4
+2658		MOV r4, r0
+2659		STRB r4, [sp]
+2660		LDR r4, [sp, #1]
+2661		STR r4, [sp, #-4]!
+2662		BL f_deleteStateTreeRecursively
+2663		ADD sp, sp, #4
+2664		MOV r4, r0
+2665		STRB r4, [sp]
+2666		MOV r4, #1
+2667		MOV r0, r4
+2668		ADD sp, sp, #17
+2669		POP {pc}
+2670		POP {pc}
+2671		.ltorg
+2672	f_askForAMove:
+2673		PUSH {lr}
+2674		LDRSB r4, [sp, #8]
+2675		LDRSB r5, [sp, #9]
+2676		CMP r4, r5
+2677		MOVEQ r4, #1
+2678		MOVNE r4, #0
+2679		CMP r4, #0
+2680		BEQ L76
+2681		SUB sp, sp, #1
+2682		LDR r4, [sp, #15]
+2683		STR r4, [sp, #-4]!
+2684		LDR r4, [sp, #9]
+2685		STR r4, [sp, #-4]!
+2686		BL f_askForAMoveHuman
+2687		ADD sp, sp, #8
+2688		MOV r4, r0
+2689		STRB r4, [sp]
+2690		ADD sp, sp, #1
+2691		B L77
+2692	L76:
+2693		SUB sp, sp, #1
+2694		LDR r4, [sp, #15]
+2695		STR r4, [sp, #-4]!
+2696		LDR r4, [sp, #15]
+2697		STR r4, [sp, #-4]!
+2698		LDRSB r4, [sp, #18]
+2699		STRB r4, [sp, #-1]!
+2700		LDRSB r4, [sp, #18]
+2701		STRB r4, [sp, #-1]!
+2702		LDR r4, [sp, #15]
+2703		STR r4, [sp, #-4]!
+2704		BL f_askForAMoveAI
+2705		ADD sp, sp, #14
+2706		MOV r4, r0
+2707		STRB r4, [sp]
+2708		ADD sp, sp, #1
+2709	L77:
+2710		MOV r4, #1
+2711		MOV r0, r4
+2712		POP {pc}
+2713		POP {pc}
+2714		.ltorg
+2715	f_placeMove:
+2716		PUSH {lr}
+2717		SUB sp, sp, #4
+2718		LDR r4, =0
+2719		STR r4, [sp]
+2720		LDR r4, [sp, #13]
+2721		LDR r5, =2
+2722		CMP r4, r5
+2723		MOVLE r4, #1
+2724		MOVGT r4, #0
+2725		CMP r4, #0
+2726		BEQ L78
+2727		SUB sp, sp, #4
+2728		LDR r4, [sp, #12]
+2729		MOV r0, r4
+2730		BL p_check_null_pointer
+2731		LDR r4, [r4]
+2732		LDR r4, [r4]
+2733		STR r4, [sp]
+2734		LDR r4, [sp, #17]
+2735		LDR r5, =1
+2736		CMP r4, r5
+2737		MOVEQ r4, #1
+2738		MOVNE r4, #0
+2739		CMP r4, #0
+2740		BEQ L80
+2741		LDR r4, [sp]
+2742		MOV r0, r4
+2743		BL p_check_null_pointer
+2744		LDR r4, [r4]
+2745		LDR r4, [r4]
+2746		STR r4, [sp, #4]
+2747		B L81
+2748	L80:
+2749		LDR r4, [sp]
+2750		MOV r0, r4
+2751		BL p_check_null_pointer
+2752		LDR r4, [r4, #4]
+2753		LDR r4, [r4]
+2754		STR r4, [sp, #4]
+2755	L81:
+2756		ADD sp, sp, #4
+2757		B L79
+2758	L78:
+2759		LDR r4, [sp, #8]
+2760		MOV r0, r4
+2761		BL p_check_null_pointer
+2762		LDR r4, [r4, #4]
+2763		LDR r4, [r4]
+2764		STR r4, [sp]
+2765	L79:
+2766		LDR r4, [sp, #17]
+2767		LDR r5, =2
+2768		CMP r4, r5
+2769		MOVLE r4, #1
+2770		MOVGT r4, #0
+2771		CMP r4, #0
+2772		BEQ L82
+2773		SUB sp, sp, #4
+2774		LDR r4, [sp, #4]
+2775		MOV r0, r4
+2776		BL p_check_null_pointer
+2777		LDR r4, [r4]
+2778		LDR r4, [r4]
+2779		STR r4, [sp]
+2780		LDR r4, [sp, #21]
+2781		LDR r5, =1
+2782		CMP r4, r5
+2783		MOVEQ r4, #1
+2784		MOVNE r4, #0
+2785		CMP r4, #0
+2786		BEQ L84
+2787		LDRSB r4, [sp, #16]
+2788		LDR r5, [sp]
+2789		MOV r0, r5
+2790		BL p_check_null_pointer
+2791		LDR r5, [r5]
+2792		STRB r4, [r5]
+2793		B L85
+2794	L84:
+2795		LDRSB r4, [sp, #16]
+2796		LDR r5, [sp]
+2797		MOV r0, r5
+2798		BL p_check_null_pointer
+2799		LDR r5, [r5, #4]
+2800		STRB r4, [r5]
+2801	L85:
+2802		ADD sp, sp, #4
+2803		B L83
+2804	L82:
+2805		LDRSB r4, [sp, #12]
+2806		LDR r5, [sp]
+2807		MOV r0, r5
+2808		BL p_check_null_pointer
+2809		LDR r5, [r5, #4]
+2810		STRB r4, [r5]
+2811	L83:
+2812		MOV r4, #1
+2813		MOV r0, r4
+2814		ADD sp, sp, #4
+2815		POP {pc}
+2816		POP {pc}
+2817		.ltorg
+2818	f_notifyMove:
+2819		PUSH {lr}
+2820		LDRSB r4, [sp, #8]
+2821		LDRSB r5, [sp, #9]
+2822		CMP r4, r5
+2823		MOVEQ r4, #1
+2824		MOVNE r4, #0
+2825		CMP r4, #0
+2826		BEQ L86
+2827		SUB sp, sp, #1
+2828		LDR r4, [sp, #19]
+2829		STR r4, [sp, #-4]!
+2830		LDR r4, [sp, #19]
+2831		STR r4, [sp, #-4]!
+2832		LDR r4, [sp, #19]
+2833		STR r4, [sp, #-4]!
+2834		LDRSB r4, [sp, #22]
+2835		STRB r4, [sp, #-1]!
+2836		LDRSB r4, [sp, #22]
+2837		STRB r4, [sp, #-1]!
+2838		LDR r4, [sp, #19]
+2839		STR r4, [sp, #-4]!
+2840		BL f_notifyMoveAI
+2841		ADD sp, sp, #18
+2842		MOV r4, r0
+2843		STRB r4, [sp]
+2844		ADD sp, sp, #1
+2845		B L87
+2846	L86:
+2847		SUB sp, sp, #1
+2848		LDR r4, [sp, #19]
+2849		STR r4, [sp, #-4]!
+2850		LDR r4, [sp, #19]
+2851		STR r4, [sp, #-4]!
+2852		LDRSB r4, [sp, #18]
+2853		STRB r4, [sp, #-1]!
+2854		LDRSB r4, [sp, #18]
+2855		STRB r4, [sp, #-1]!
+2856		LDR r4, [sp, #15]
+2857		STR r4, [sp, #-4]!
+2858		BL f_notifyMoveHuman
+2859		ADD sp, sp, #14
+2860		MOV r4, r0
+2861		STRB r4, [sp]
+2862		ADD sp, sp, #1
+2863	L87:
+2864		MOV r4, #1
+2865		MOV r0, r4
+2866		POP {pc}
+2867		POP {pc}
+2868		.ltorg
+2869	f_oppositeSymbol:
+2870		PUSH {lr}
+2871		LDRSB r4, [sp, #4]
+2872		MOV r5, #'x'
+2873		CMP r4, r5
+2874		MOVEQ r4, #1
+2875		MOVNE r4, #0
+2876		CMP r4, #0
+2877		BEQ L88
+2878		MOV r4, #'o'
+2879		MOV r0, r4
+2880		POP {pc}
+2881		B L89
+2882	L88:
+2883		LDRSB r4, [sp, #4]
+2884		MOV r5, #'o'
+2885		CMP r4, r5
+2886		MOVEQ r4, #1
+2887		MOVNE r4, #0
+2888		CMP r4, #0
+2889		BEQ L90
+2890		MOV r4, #'x'
+2891		MOV r0, r4
+2892		POP {pc}
+2893		B L91
+2894	L90:
+2895		LDR r4, =msg_33
+2896		MOV r0, r4
+2897		BL p_print_string
+2898		BL p_print_ln
+2899		LDR r4, =-1
+2900		MOV r0, r4
+2901		BL exit
+2902	L91:
+2903	L89:
+2904		POP {pc}
+2905		.ltorg
+2906	f_symbolAt:
+2907		PUSH {lr}
+2908		SUB sp, sp, #5
+2909		LDR r4, =0
+2910		STR r4, [sp, #1]
+2911		LDR r4, [sp, #13]
+2912		LDR r5, =2
+2913		CMP r4, r5
+2914		MOVLE r4, #1
+2915		MOVGT r4, #0
+2916		CMP r4, #0
+2917		BEQ L92
+2918		SUB sp, sp, #4
+2919		LDR r4, [sp, #13]
+2920		MOV r0, r4
+2921		BL p_check_null_pointer
+2922		LDR r4, [r4]
+2923		LDR r4, [r4]
+2924		STR r4, [sp]
+2925		LDR r4, [sp, #17]
+2926		LDR r5, =1
+2927		CMP r4, r5
+2928		MOVEQ r4, #1
+2929		MOVNE r4, #0
+2930		CMP r4, #0
+2931		BEQ L94
+2932		LDR r4, [sp]
+2933		MOV r0, r4
+2934		BL p_check_null_pointer
+2935		LDR r4, [r4]
+2936		LDR r4, [r4]
+2937		STR r4, [sp, #5]
+2938		B L95
+2939	L94:
+2940		LDR r4, [sp]
+2941		MOV r0, r4
+2942		BL p_check_null_pointer
+2943		LDR r4, [r4, #4]
+2944		LDR r4, [r4]
+2945		STR r4, [sp, #5]
+2946	L95:
+2947		ADD sp, sp, #4
+2948		B L93
+2949	L92:
+2950		LDR r4, [sp, #9]
+2951		MOV r0, r4
+2952		BL p_check_null_pointer
+2953		LDR r4, [r4, #4]
+2954		LDR r4, [r4]
+2955		STR r4, [sp, #1]
+2956	L93:
+2957		MOV r4, #0
+2958		STRB r4, [sp]
+2959		LDR r4, [sp, #17]
+2960		LDR r5, =2
+2961		CMP r4, r5
+2962		MOVLE r4, #1
+2963		MOVGT r4, #0
+2964		CMP r4, #0
+2965		BEQ L96
+2966		SUB sp, sp, #4
+2967		LDR r4, [sp, #5]
+2968		MOV r0, r4
+2969		BL p_check_null_pointer
+2970		LDR r4, [r4]
+2971		LDR r4, [r4]
+2972		STR r4, [sp]
+2973		LDR r4, [sp, #21]
+2974		LDR r5, =1
+2975		CMP r4, r5
+2976		MOVEQ r4, #1
+2977		MOVNE r4, #0
+2978		CMP r4, #0
+2979		BEQ L98
+2980		LDR r4, [sp]
+2981		MOV r0, r4
+2982		BL p_check_null_pointer
+2983		LDR r4, [r4]
+2984		LDRSB r4, [r4]
+2985		STRB r4, [sp, #4]
+2986		B L99
+2987	L98:
+2988		LDR r4, [sp]
+2989		MOV r0, r4
+2990		BL p_check_null_pointer
+2991		LDR r4, [r4, #4]
+2992		LDRSB r4, [r4]
+2993		STRB r4, [sp, #4]
+2994	L99:
+2995		ADD sp, sp, #4
+2996		B L97
+2997	L96:
+2998		LDR r4, [sp, #1]
+2999		MOV r0, r4
+3000		BL p_check_null_pointer
+3001		LDR r4, [r4, #4]
+3002		LDRSB r4, [r4]
+3003		STRB r4, [sp]
+3004	L97:
+3005		LDRSB r4, [sp]
+3006		MOV r0, r4
+3007		ADD sp, sp, #5
+3008		POP {pc}
+3009		POP {pc}
+3010		.ltorg
+3011	f_containEmptyCell:
+3012		PUSH {lr}
+3013		SUB sp, sp, #19
+3014		LDR r4, [sp, #23]
+3015		MOV r0, r4
+3016		BL p_check_null_pointer
+3017		LDR r4, [r4]
+3018		LDR r4, [r4]
+3019		STR r4, [sp, #15]
+3020		LDR r4, [sp, #15]
+3021		MOV r0, r4
+3022		BL p_check_null_pointer
+3023		LDR r4, [r4]
+3024		LDR r4, [r4]
+3025		STR r4, [sp, #11]
+3026		LDR r4, [sp, #15]
+3027		MOV r0, r4
+3028		BL p_check_null_pointer
+3029		LDR r4, [r4, #4]
+3030		LDR r4, [r4]
+3031		STR r4, [sp, #7]
+3032		LDR r4, [sp, #23]
+3033		MOV r0, r4
+3034		BL p_check_null_pointer
+3035		LDR r4, [r4, #4]
+3036		LDR r4, [r4]
+3037		STR r4, [sp, #3]
+3038		LDR r4, [sp, #11]
+3039		STR r4, [sp, #-4]!
+3040		BL f_containEmptyCellRow
+3041		ADD sp, sp, #4
+3042		MOV r4, r0
+3043		STRB r4, [sp, #2]
+3044		LDR r4, [sp, #7]
+3045		STR r4, [sp, #-4]!
+3046		BL f_containEmptyCellRow
+3047		ADD sp, sp, #4
+3048		MOV r4, r0
+3049		STRB r4, [sp, #1]
+3050		LDR r4, [sp, #3]
+3051		STR r4, [sp, #-4]!
+3052		BL f_containEmptyCellRow
+3053		ADD sp, sp, #4
+3054		MOV r4, r0
+3055		STRB r4, [sp]
+3056		LDRSB r4, [sp, #2]
+3057		LDRSB r5, [sp, #1]
+3058		ORR r4, r4, r5
+3059		LDRSB r5, [sp]
+3060		ORR r4, r4, r5
+3061		MOV r0, r4
+3062		ADD sp, sp, #19
+3063		POP {pc}
+3064		POP {pc}
+3065		.ltorg
+3066	f_containEmptyCellRow:
+3067		PUSH {lr}
+3068		SUB sp, sp, #7
+3069		LDR r4, [sp, #11]
+3070		MOV r0, r4
+3071		BL p_check_null_pointer
+3072		LDR r4, [r4]
+3073		LDR r4, [r4]
+3074		STR r4, [sp, #3]
+3075		LDR r4, [sp, #3]
+3076		MOV r0, r4
+3077		BL p_check_null_pointer
+3078		LDR r4, [r4]
+3079		LDRSB r4, [r4]
+3080		STRB r4, [sp, #2]
+3081		LDR r4, [sp, #3]
+3082		MOV r0, r4
+3083		BL p_check_null_pointer
+3084		LDR r4, [r4, #4]
+3085		LDRSB r4, [r4]
+3086		STRB r4, [sp, #1]
+3087		LDR r4, [sp, #11]
+3088		MOV r0, r4
+3089		BL p_check_null_pointer
+3090		LDR r4, [r4, #4]
+3091		LDRSB r4, [r4]
+3092		STRB r4, [sp]
+3093		LDRSB r4, [sp, #2]
+3094		MOV r5, #0
+3095		CMP r4, r5
+3096		MOVEQ r4, #1
+3097		MOVNE r4, #0
+3098		LDRSB r5, [sp, #1]
+3099		MOV r6, #0
+3100		CMP r5, r6
+3101		MOVEQ r5, #1
+3102		MOVNE r5, #0
+3103		ORR r4, r4, r5
+3104		LDRSB r5, [sp]
+3105		MOV r6, #0
+3106		CMP r5, r6
+3107		MOVEQ r5, #1
+3108		MOVNE r5, #0
+3109		ORR r4, r4, r5
+3110		MOV r0, r4
+3111		ADD sp, sp, #7
+3112		POP {pc}
+3113		POP {pc}
+3114		.ltorg
+3115	f_hasWon:
+3116		PUSH {lr}
+3117		SUB sp, sp, #9
+3118		LDR r4, =1
+3119		STR r4, [sp, #-4]!
+3120		LDR r4, =1
+3121		STR r4, [sp, #-4]!
+3122		LDR r4, [sp, #21]
+3123		STR r4, [sp, #-4]!
+3124		BL f_symbolAt
+3125		ADD sp, sp, #12
+3126		MOV r4, r0
+3127		STRB r4, [sp, #8]
+3128		LDR r4, =2
+3129		STR r4, [sp, #-4]!
+3130		LDR r4, =1
+3131		STR r4, [sp, #-4]!
+3132		LDR r4, [sp, #21]
+3133		STR r4, [sp, #-4]!
+3134		BL f_symbolAt
+3135		ADD sp, sp, #12
+3136		MOV r4, r0
+3137		STRB r4, [sp, #7]
+3138		LDR r4, =3
+3139		STR r4, [sp, #-4]!
+3140		LDR r4, =1
+3141		STR r4, [sp, #-4]!
+3142		LDR r4, [sp, #21]
+3143		STR r4, [sp, #-4]!
+3144		BL f_symbolAt
+3145		ADD sp, sp, #12
+3146		MOV r4, r0
+3147		STRB r4, [sp, #6]
+3148		LDR r4, =1
+3149		STR r4, [sp, #-4]!
+3150		LDR r4, =2
+3151		STR r4, [sp, #-4]!
+3152		LDR r4, [sp, #21]
+3153		STR r4, [sp, #-4]!
+3154		BL f_symbolAt
+3155		ADD sp, sp, #12
+3156		MOV r4, r0
+3157		STRB r4, [sp, #5]
+3158		LDR r4, =2
+3159		STR r4, [sp, #-4]!
+3160		LDR r4, =2
+3161		STR r4, [sp, #-4]!
+3162		LDR r4, [sp, #21]
+3163		STR r4, [sp, #-4]!
+3164		BL f_symbolAt
+3165		ADD sp, sp, #12
+3166		MOV r4, r0
+3167		STRB r4, [sp, #4]
+3168		LDR r4, =3
+3169		STR r4, [sp, #-4]!
+3170		LDR r4, =2
+3171		STR r4, [sp, #-4]!
+3172		LDR r4, [sp, #21]
+3173		STR r4, [sp, #-4]!
+3174		BL f_symbolAt
+3175		ADD sp, sp, #12
+3176		MOV r4, r0
+3177		STRB r4, [sp, #3]
+3178		LDR r4, =1
+3179		STR r4, [sp, #-4]!
+3180		LDR r4, =3
+3181		STR r4, [sp, #-4]!
+3182		LDR r4, [sp, #21]
+3183		STR r4, [sp, #-4]!
+3184		BL f_symbolAt
+3185		ADD sp, sp, #12
+3186		MOV r4, r0
+3187		STRB r4, [sp, #2]
+3188		LDR r4, =2
+3189		STR r4, [sp, #-4]!
+3190		LDR r4, =3
+3191		STR r4, [sp, #-4]!
+3192		LDR r4, [sp, #21]
+3193		STR r4, [sp, #-4]!
+3194		BL f_symbolAt
+3195		ADD sp, sp, #12
+3196		MOV r4, r0
+3197		STRB r4, [sp, #1]
+3198		LDR r4, =3
+3199		STR r4, [sp, #-4]!
+3200		LDR r4, =3
+3201		STR r4, [sp, #-4]!
+3202		LDR r4, [sp, #21]
+3203		STR r4, [sp, #-4]!
+3204		BL f_symbolAt
+3205		ADD sp, sp, #12
+3206		MOV r4, r0
+3207		STRB r4, [sp]
+3208		LDRSB r4, [sp, #8]
+3209		LDRSB r5, [sp, #17]
+3210		CMP r4, r5
+3211		MOVEQ r4, #1
+3212		MOVNE r4, #0
+3213		LDRSB r5, [sp, #7]
+3214		LDRSB r6, [sp, #17]
+3215		CMP r5, r6
+3216		MOVEQ r5, #1
+3217		MOVNE r5, #0
+3218		AND r4, r4, r5
+3219		LDRSB r5, [sp, #6]
+3220		LDRSB r6, [sp, #17]
+3221		CMP r5, r6
+3222		MOVEQ r5, #1
+3223		MOVNE r5, #0
+3224		AND r4, r4, r5
+3225		LDRSB r5, [sp, #5]
+3226		LDRSB r6, [sp, #17]
+3227		CMP r5, r6
+3228		MOVEQ r5, #1
+3229		MOVNE r5, #0
+3230		LDRSB r6, [sp, #4]
+3231		LDRSB r7, [sp, #17]
+3232		CMP r6, r7
+3233		MOVEQ r6, #1
+3234		MOVNE r6, #0
+3235		AND r5, r5, r6
+3236		LDRSB r6, [sp, #3]
+3237		LDRSB r7, [sp, #17]
+3238		CMP r6, r7
+3239		MOVEQ r6, #1
+3240		MOVNE r6, #0
+3241		AND r5, r5, r6
+3242		ORR r4, r4, r5
+3243		LDRSB r5, [sp, #2]
+3244		LDRSB r6, [sp, #17]
+3245		CMP r5, r6
+3246		MOVEQ r5, #1
+3247		MOVNE r5, #0
+3248		LDRSB r6, [sp, #1]
+3249		LDRSB r7, [sp, #17]
+3250		CMP r6, r7
+3251		MOVEQ r6, #1
+3252		MOVNE r6, #0
+3253		AND r5, r5, r6
+3254		LDRSB r6, [sp]
+3255		LDRSB r7, [sp, #17]
+3256		CMP r6, r7
+3257		MOVEQ r6, #1
+3258		MOVNE r6, #0
+3259		AND r5, r5, r6
+3260		ORR r4, r4, r5
+3261		LDRSB r5, [sp, #8]
+3262		LDRSB r6, [sp, #17]
+3263		CMP r5, r6
+3264		MOVEQ r5, #1
+3265		MOVNE r5, #0
+3266		LDRSB r6, [sp, #5]
+3267		LDRSB r7, [sp, #17]
+3268		CMP r6, r7
+3269		MOVEQ r6, #1
+3270		MOVNE r6, #0
+3271		AND r5, r5, r6
+3272		LDRSB r6, [sp, #2]
+3273		LDRSB r7, [sp, #17]
+3274		CMP r6, r7
+3275		MOVEQ r6, #1
+3276		MOVNE r6, #0
+3277		AND r5, r5, r6
+3278		ORR r4, r4, r5
+3279		LDRSB r5, [sp, #7]
+3280		LDRSB r6, [sp, #17]
+3281		CMP r5, r6
+3282		MOVEQ r5, #1
+3283		MOVNE r5, #0
+3284		LDRSB r6, [sp, #4]
+3285		LDRSB r7, [sp, #17]
+3286		CMP r6, r7
+3287		MOVEQ r6, #1
+3288		MOVNE r6, #0
+3289		AND r5, r5, r6
+3290		LDRSB r6, [sp, #1]
+3291		LDRSB r7, [sp, #17]
+3292		CMP r6, r7
+3293		MOVEQ r6, #1
+3294		MOVNE r6, #0
+3295		AND r5, r5, r6
+3296		ORR r4, r4, r5
+3297		LDRSB r5, [sp, #6]
+3298		LDRSB r6, [sp, #17]
+3299		CMP r5, r6
+3300		MOVEQ r5, #1
+3301		MOVNE r5, #0
+3302		LDRSB r6, [sp, #3]
+3303		LDRSB r7, [sp, #17]
+3304		CMP r6, r7
+3305		MOVEQ r6, #1
+3306		MOVNE r6, #0
+3307		AND r5, r5, r6
+3308		LDRSB r6, [sp]
+3309		LDRSB r7, [sp, #17]
+3310		CMP r6, r7
+3311		MOVEQ r6, #1
+3312		MOVNE r6, #0
+3313		AND r5, r5, r6
+3314		ORR r4, r4, r5
+3315		LDRSB r5, [sp, #8]
+3316		LDRSB r6, [sp, #17]
+3317		CMP r5, r6
+3318		MOVEQ r5, #1
+3319		MOVNE r5, #0
+3320		LDRSB r6, [sp, #4]
+3321		LDRSB r7, [sp, #17]
+3322		CMP r6, r7
+3323		MOVEQ r6, #1
+3324		MOVNE r6, #0
+3325		AND r5, r5, r6
+3326		LDRSB r6, [sp]
+3327		LDRSB r7, [sp, #17]
+3328		CMP r6, r7
+3329		MOVEQ r6, #1
+3330		MOVNE r6, #0
+3331		AND r5, r5, r6
+3332		ORR r4, r4, r5
+3333		LDRSB r5, [sp, #6]
+3334		LDRSB r6, [sp, #17]
+3335		CMP r5, r6
+3336		MOVEQ r5, #1
+3337		MOVNE r5, #0
+3338		LDRSB r6, [sp, #4]
+3339		LDRSB r7, [sp, #17]
+3340		CMP r6, r7
+3341		MOVEQ r6, #1
+3342		MOVNE r6, #0
+3343		AND r5, r5, r6
+3344		LDRSB r6, [sp, #2]
+3345		LDRSB r7, [sp, #17]
+3346		CMP r6, r7
+3347		MOVEQ r6, #1
+3348		MOVNE r6, #0
+3349		AND r5, r5, r6
+3350		ORR r4, r4, r5
+3351		MOV r0, r4
+3352		ADD sp, sp, #9
+3353		POP {pc}
+3354		POP {pc}
+3355		.ltorg
+3356	f_allocateNewBoard:
+3357		PUSH {lr}
+3358		SUB sp, sp, #20
+3359		BL f_allocateNewRow
+3360		MOV r4, r0
+3361		STR r4, [sp, #16]
+3362		BL f_allocateNewRow
+3363		MOV r4, r0
+3364		STR r4, [sp, #12]
+3365		BL f_allocateNewRow
+3366		MOV r4, r0
+3367		STR r4, [sp, #8]
+3368		LDR r0, =8
+3369		BL malloc
+3370		MOV r4, r0
+3371		LDR r5, [sp, #16]
+3372		LDR r0, =4
+3373		BL malloc
+3374		STR r5, [r0]
+3375		STR r0, [r4]
+3376		LDR r5, [sp, #12]
+3377		LDR r0, =4
+3378		BL malloc
+3379		STR r5, [r0]
+3380		STR r0, [r4, #4]
+3381		STR r4, [sp, #4]
+3382		LDR r0, =8
+3383		BL malloc
+3384		MOV r4, r0
+3385		LDR r5, [sp, #4]
+3386		LDR r0, =4
+3387		BL malloc
+3388		STR r5, [r0]
+3389		STR r0, [r4]
+3390		LDR r5, [sp, #8]
+3391		LDR r0, =4
+3392		BL malloc
+3393		STR r5, [r0]
+3394		STR r0, [r4, #4]
+3395		STR r4, [sp]
+3396		LDR r4, [sp]
+3397		MOV r0, r4
+3398		ADD sp, sp, #20
+3399		POP {pc}
+3400		POP {pc}
+3401		.ltorg
+3402	f_allocateNewRow:
+3403		PUSH {lr}
+3404		SUB sp, sp, #8
+3405		LDR r0, =8
+3406		BL malloc
+3407		MOV r4, r0
+3408		MOV r5, #0
+3409		LDR r0, =1
+3410		BL malloc
+3411		STRB r5, [r0]
+3412		STR r0, [r4]
+3413		MOV r5, #0
+3414		LDR r0, =1
+3415		BL malloc
+3416		STRB r5, [r0]
+3417		STR r0, [r4, #4]
+3418		STR r4, [sp, #4]
+3419		LDR r0, =8
+3420		BL malloc
+3421		MOV r4, r0
+3422		LDR r5, [sp, #4]
+3423		LDR r0, =4
+3424		BL malloc
+3425		STR r5, [r0]
+3426		STR r0, [r4]
+3427		MOV r5, #0
+3428		LDR r0, =1
+3429		BL malloc
+3430		STRB r5, [r0]
+3431		STR r0, [r4, #4]
+3432		STR r4, [sp]
+3433		LDR r4, [sp]
+3434		MOV r0, r4
+3435		ADD sp, sp, #8
+3436		POP {pc}
+3437		POP {pc}
+3438		.ltorg
+3439	f_freeBoard:
+3440		PUSH {lr}
+3441		SUB sp, sp, #17
+3442		LDR r4, [sp, #21]
+3443		MOV r0, r4
+3444		BL p_check_null_pointer
+3445		LDR r4, [r4]
+3446		LDR r4, [r4]
+3447		STR r4, [sp, #13]
+3448		LDR r4, [sp, #13]
+3449		MOV r0, r4
+3450		BL p_check_null_pointer
+3451		LDR r4, [r4]
+3452		LDR r4, [r4]
+3453		STR r4, [sp, #9]
+3454		LDR r4, [sp, #13]
+3455		MOV r0, r4
+3456		BL p_check_null_pointer
+3457		LDR r4, [r4, #4]
+3458		LDR r4, [r4]
+3459		STR r4, [sp, #5]
+3460		LDR r4, [sp, #21]
+3461		MOV r0, r4
+3462		BL p_check_null_pointer
+3463		LDR r4, [r4, #4]
+3464		LDR r4, [r4]
+3465		STR r4, [sp, #1]
+3466		LDR r4, [sp, #9]
+3467		STR r4, [sp, #-4]!
+3468		BL f_freeRow
+3469		ADD sp, sp, #4
+3470		MOV r4, r0
+3471		STRB r4, [sp]
+3472		LDR r4, [sp, #5]
+3473		STR r4, [sp, #-4]!
+3474		BL f_freeRow
+3475		ADD sp, sp, #4
+3476		MOV r4, r0
+3477		STRB r4, [sp]
+3478		LDR r4, [sp, #1]
+3479		STR r4, [sp, #-4]!
+3480		BL f_freeRow
+3481		ADD sp, sp, #4
+3482		MOV r4, r0
+3483		STRB r4, [sp]
+3484		LDR r4, [sp, #13]
+3485		MOV r0, r4
+3486		BL p_free_pair
+3487		LDR r4, [sp, #21]
+3488		MOV r0, r4
+3489		BL p_free_pair
+3490		MOV r4, #1
+3491		MOV r0, r4
+3492		ADD sp, sp, #17
+3493		POP {pc}
+3494		POP {pc}
+3495		.ltorg
+3496	f_freeRow:
+3497		PUSH {lr}
+3498		SUB sp, sp, #4
+3499		LDR r4, [sp, #8]
+3500		MOV r0, r4
+3501		BL p_check_null_pointer
+3502		LDR r4, [r4]
+3503		LDR r4, [r4]
+3504		STR r4, [sp]
+3505		LDR r4, [sp]
+3506		MOV r0, r4
+3507		BL p_free_pair
+3508		LDR r4, [sp, #8]
+3509		MOV r0, r4
+3510		BL p_free_pair
+3511		MOV r4, #1
+3512		MOV r0, r4
+3513		ADD sp, sp, #4
+3514		POP {pc}
+3515		POP {pc}
+3516		.ltorg
+3517	f_printAiData:
+3518		PUSH {lr}
+3519		SUB sp, sp, #9
+3520		LDR r4, [sp, #13]
+3521		MOV r0, r4
+3522		BL p_check_null_pointer
+3523		LDR r4, [r4]
+3524		LDR r4, [r4]
+3525		STR r4, [sp, #5]
+3526		LDR r4, [sp, #13]
+3527		MOV r0, r4
+3528		BL p_check_null_pointer
+3529		LDR r4, [r4, #4]
+3530		LDR r4, [r4]
+3531		STR r4, [sp, #1]
+3532		LDR r4, [sp, #1]
+3533		STR r4, [sp, #-4]!
+3534		BL f_printStateTreeRecursively
+3535		ADD sp, sp, #4
+3536		MOV r4, r0
+3537		STRB r4, [sp]
+3538		LDR r4, =0
+3539		MOV r0, r4
+3540		BL exit
+3541		POP {pc}
+3542		.ltorg
+3543	f_printStateTreeRecursively:
+3544		PUSH {lr}
+3545		LDR r4, [sp, #4]
+3546		LDR r5, =0
+3547		CMP r4, r5
+3548		MOVEQ r4, #1
+3549		MOVNE r4, #0
+3550		CMP r4, #0
+3551		BEQ L100
+3552		MOV r4, #1
+3553		MOV r0, r4
+3554		POP {pc}
+3555		B L101
+3556	L100:
+3557		SUB sp, sp, #17
+3558		LDR r4, [sp, #21]
+3559		MOV r0, r4
+3560		BL p_check_null_pointer
+3561		LDR r4, [r4]
+3562		LDR r4, [r4]
+3563		STR r4, [sp, #13]
+3564		LDR r4, [sp, #13]
+3565		MOV r0, r4
+3566		BL p_check_null_pointer
+3567		LDR r4, [r4]
+3568		LDR r4, [r4]
+3569		STR r4, [sp, #9]
+3570		LDR r4, [sp, #13]
+3571		MOV r0, r4
+3572		BL p_check_null_pointer
+3573		LDR r4, [r4, #4]
+3574		LDR r4, [r4]
+3575		STR r4, [sp, #5]
+3576		LDR r4, [sp, #21]
+3577		MOV r0, r4
+3578		BL p_check_null_pointer
+3579		LDR r4, [r4, #4]
+3580		LDR r4, [r4]
+3581		STR r4, [sp, #1]
+3582		MOV r4, #'v'
+3583		MOV r0, r4
+3584		BL putchar
+3585		MOV r4, #'='
+3586		MOV r0, r4
+3587		BL putchar
+3588		LDR r4, [sp, #1]
+3589		MOV r0, r4
+3590		BL p_print_int
+3591		BL p_print_ln
+3592		LDR r4, [sp, #9]
+3593		STR r4, [sp, #-4]!
+3594		BL f_printBoard
+3595		ADD sp, sp, #4
+3596		MOV r4, r0
+3597		STRB r4, [sp]
+3598		LDR r4, [sp, #5]
+3599		STR r4, [sp, #-4]!
+3600		BL f_printChildrenStateTree
+3601		ADD sp, sp, #4
+3602		MOV r4, r0
+3603		STRB r4, [sp]
+3604		MOV r4, #'p'
+3605		MOV r0, r4
+3606		BL putchar
+3607		BL p_print_ln
+3608		MOV r4, #1
+3609		MOV r0, r4
+3610		ADD sp, sp, #17
+3611		POP {pc}
+3612		ADD sp, sp, #17
+3613	L101:
+3614		POP {pc}
+3615		.ltorg
+3616	f_printChildrenStateTree:
+3617		PUSH {lr}
+3618		SUB sp, sp, #17
+3619		LDR r4, [sp, #21]
+3620		MOV r0, r4
+3621		BL p_check_null_pointer
+3622		LDR r4, [r4]
+3623		LDR r4, [r4]
+3624		STR r4, [sp, #13]
+3625		LDR r4, [sp, #13]
+3626		MOV r0, r4
+3627		BL p_check_null_pointer
+3628		LDR r4, [r4]
+3629		LDR r4, [r4]
+3630		STR r4, [sp, #9]
+3631		LDR r4, [sp, #13]
+3632		MOV r0, r4
+3633		BL p_check_null_pointer
+3634		LDR r4, [r4, #4]
+3635		LDR r4, [r4]
+3636		STR r4, [sp, #5]
+3637		LDR r4, [sp, #21]
+3638		MOV r0, r4
+3639		BL p_check_null_pointer
+3640		LDR r4, [r4, #4]
+3641		LDR r4, [r4]
+3642		STR r4, [sp, #1]
+3643		LDR r4, [sp, #9]
+3644		STR r4, [sp, #-4]!
+3645		BL f_printChildrenStateTreeRow
+3646		ADD sp, sp, #4
+3647		MOV r4, r0
+3648		STRB r4, [sp]
+3649		LDR r4, [sp, #5]
+3650		STR r4, [sp, #-4]!
+3651		BL f_printChildrenStateTreeRow
+3652		ADD sp, sp, #4
+3653		MOV r4, r0
+3654		STRB r4, [sp]
+3655		LDR r4, [sp, #1]
+3656		STR r4, [sp, #-4]!
+3657		BL f_printChildrenStateTreeRow
+3658		ADD sp, sp, #4
+3659		MOV r4, r0
+3660		STRB r4, [sp]
+3661		MOV r4, #1
+3662		MOV r0, r4
+3663		ADD sp, sp, #17
+3664		POP {pc}
+3665		POP {pc}
+3666		.ltorg
+3667	f_printChildrenStateTreeRow:
+3668		PUSH {lr}
+3669		SUB sp, sp, #17
+3670		LDR r4, [sp, #21]
+3671		MOV r0, r4
+3672		BL p_check_null_pointer
+3673		LDR r4, [r4]
+3674		LDR r4, [r4]
+3675		STR r4, [sp, #13]
+3676		LDR r4, [sp, #13]
+3677		MOV r0, r4
+3678		BL p_check_null_pointer
+3679		LDR r4, [r4]
+3680		LDR r4, [r4]
+3681		STR r4, [sp, #9]
+3682		LDR r4, [sp, #13]
+3683		MOV r0, r4
+3684		BL p_check_null_pointer
+3685		LDR r4, [r4, #4]
+3686		LDR r4, [r4]
+3687		STR r4, [sp, #5]
+3688		LDR r4, [sp, #21]
+3689		MOV r0, r4
+3690		BL p_check_null_pointer
+3691		LDR r4, [r4, #4]
+3692		LDR r4, [r4]
+3693		STR r4, [sp, #1]
+3694		LDR r4, [sp, #9]
+3695		STR r4, [sp, #-4]!
+3696		BL f_printStateTreeRecursively
+3697		ADD sp, sp, #4
+3698		MOV r4, r0
+3699		STRB r4, [sp]
+3700		LDR r4, [sp, #5]
+3701		STR r4, [sp, #-4]!
+3702		BL f_printStateTreeRecursively
+3703		ADD sp, sp, #4
+3704		MOV r4, r0
+3705		STRB r4, [sp]
+3706		LDR r4, [sp, #1]
+3707		STR r4, [sp, #-4]!
+3708		BL f_printStateTreeRecursively
+3709		ADD sp, sp, #4
+3710		MOV r4, r0
+3711		STRB r4, [sp]
+3712		MOV r4, #1
+3713		MOV r0, r4
+3714		ADD sp, sp, #17
+3715		POP {pc}
+3716		POP {pc}
+3717		.ltorg
+3718	main:
+3719		PUSH {lr}
+3720		SUB sp, sp, #17
+3721		BL f_chooseSymbol
+3722		MOV r4, r0
+3723		STRB r4, [sp, #16]
+3724		LDRSB r4, [sp, #16]
+3725		STRB r4, [sp, #-1]!
+3726		BL f_oppositeSymbol
+3727		ADD sp, sp, #1
+3728		MOV r4, r0
+3729		STRB r4, [sp, #15]
+3730		MOV r4, #'x'
+3731		STRB r4, [sp, #14]
+3732		BL f_allocateNewBoard
+3733		MOV r4, r0
+3734		STR r4, [sp, #10]
+3735		LDR r4, =msg_34
+3736		MOV r0, r4
+3737		BL p_print_string
+3738		BL p_print_ln
+3739		LDRSB r4, [sp, #15]
+3740		STRB r4, [sp, #-1]!
+3741		BL f_initAI
+3742		ADD sp, sp, #1
+3743		MOV r4, r0
+3744		STR r4, [sp, #6]
+3745		LDR r4, =0
+3746		STR r4, [sp, #2]
+3747		MOV r4, #0
+3748		STRB r4, [sp, #1]
+3749		LDR r4, [sp, #10]
+3750		STR r4, [sp, #-4]!
+3751		BL f_printBoard
+3752		ADD sp, sp, #4
+3753		MOV r4, r0
+3754		STRB r4, [sp]
+3755		B L102
+3756	L103:
+3757		SUB sp, sp, #5
+3758		LDR r0, =12
+3759		BL malloc
+3760		MOV r4, r0
+3761		LDR r5, =0
+3762		STR r5, [r4, #4]
+3763		LDR r5, =0
+3764		STR r5, [r4, #8]
+3765		LDR r5, =2
+3766		STR r5, [r4]
+3767		STR r4, [sp, #1]
+3768		LDR r4, [sp, #1]
+3769		STR r4, [sp, #-4]!
+3770		LDR r4, [sp, #15]
+3771		STR r4, [sp, #-4]!
+3772		LDRSB r4, [sp, #29]
+3773		STRB r4, [sp, #-1]!
+3774		LDRSB r4, [sp, #28]
+3775		STRB r4, [sp, #-1]!
+3776		LDR r4, [sp, #25]
+3777		STR r4, [sp, #-4]!
+3778		BL f_askForAMove
+3779		ADD sp, sp, #14
+3780		MOV r4, r0
+3781		STRB r4, [sp, #5]
+3782		ADD r4, sp, #1
+3783		LDR r5, =1
+3784		LDR r4, [r4]
+3785		MOV r0, r5
+3786		MOV r1, r4
+3787		BL p_check_array_bounds
+3788		ADD r4, r4, #4
+3789		ADD r4, r4, r5, LSL #2
+3790		LDR r4, [r4]
+3791		STR r4, [sp, #-4]!
+3792		ADD r4, sp, #5
+3793		LDR r5, =0
+3794		LDR r4, [r4]
+3795		MOV r0, r5
+3796		MOV r1, r4
+3797		BL p_check_array_bounds
+3798		ADD r4, r4, #4
+3799		ADD r4, r4, r5, LSL #2
+3800		LDR r4, [r4]
+3801		STR r4, [sp, #-4]!
+3802		LDRSB r4, [sp, #27]
+3803		STRB r4, [sp, #-1]!
+3804		LDR r4, [sp, #24]
+3805		STR r4, [sp, #-4]!
+3806		BL f_placeMove
+3807		ADD sp, sp, #13
+3808		MOV r4, r0
+3809		STRB r4, [sp, #5]
+3810		ADD r4, sp, #1
+3811		LDR r5, =1
+3812		LDR r4, [r4]
+3813		MOV r0, r5
+3814		MOV r1, r4
+3815		BL p_check_array_bounds
+3816		ADD r4, r4, #4
+3817		ADD r4, r4, r5, LSL #2
+3818		LDR r4, [r4]
+3819		STR r4, [sp, #-4]!
+3820		ADD r4, sp, #5
+3821		LDR r5, =0
+3822		LDR r4, [r4]
+3823		MOV r0, r5
+3824		MOV r1, r4
+3825		BL p_check_array_bounds
+3826		ADD r4, r4, #4
+3827		ADD r4, r4, r5, LSL #2
+3828		LDR r4, [r4]
+3829		STR r4, [sp, #-4]!
+3830		LDR r4, [sp, #19]
+3831		STR r4, [sp, #-4]!
+3832		LDRSB r4, [sp, #33]
+3833		STRB r4, [sp, #-1]!
+3834		LDRSB r4, [sp, #32]
+3835		STRB r4, [sp, #-1]!
+3836		LDR r4, [sp, #29]
+3837		STR r4, [sp, #-4]!
+3838		BL f_notifyMove
+3839		ADD sp, sp, #18
+3840		MOV r4, r0
+3841		STRB r4, [sp, #5]
+3842		LDR r4, [sp, #15]
+3843		STR r4, [sp, #-4]!
+3844		BL f_printBoard
+3845		ADD sp, sp, #4
+3846		MOV r4, r0
+3847		STRB r4, [sp, #5]
+3848		LDRSB r4, [sp, #19]
+3849		STRB r4, [sp, #-1]!
+3850		LDR r4, [sp, #16]
+3851		STR r4, [sp, #-4]!
+3852		BL f_hasWon
+3853		ADD sp, sp, #5
+3854		MOV r4, r0
+3855		STRB r4, [sp]
+3856		LDRSB r4, [sp]
+3857		CMP r4, #0
+3858		BEQ L104
+3859		LDRSB r4, [sp, #19]
+3860		STRB r4, [sp, #6]
+3861		B L105
+3862	L104:
+3863	L105:
+3864		LDRSB r4, [sp, #19]
+3865		STRB r4, [sp, #-1]!
+3866		BL f_oppositeSymbol
+3867		ADD sp, sp, #1
+3868		MOV r4, r0
+3869		STRB r4, [sp, #19]
+3870		LDR r4, [sp, #7]
+3871		LDR r5, =1
+3872		ADDS r4, r4, r5
+3873		BLVS p_throw_overflow_error
+3874		STR r4, [sp, #7]
+3875		ADD sp, sp, #5
+3876	L102:
+3877		LDRSB r4, [sp, #1]
+3878		MOV r5, #0
+3879		CMP r4, r5
+3880		MOVEQ r4, #1
+3881		MOVNE r4, #0
+3882		LDR r5, [sp, #2]
+3883		LDR r6, =9
+3884		CMP r5, r6
+3885		MOVLT r5, #1
+3886		MOVGE r5, #0
+3887		AND r4, r4, r5
+3888		CMP r4, #1
+3889		BEQ L103
+3890		LDR r4, [sp, #10]
+3891		STR r4, [sp, #-4]!
+3892		BL f_freeBoard
+3893		ADD sp, sp, #4
+3894		MOV r4, r0
+3895		STRB r4, [sp]
+3896		LDR r4, [sp, #6]
+3897		STR r4, [sp, #-4]!
+3898		BL f_destroyAI
+3899		ADD sp, sp, #4
+3900		MOV r4, r0
+3901		STRB r4, [sp]
+3902		LDRSB r4, [sp, #1]
+3903		MOV r5, #0
+3904		CMP r4, r5
+3905		MOVNE r4, #1
+3906		MOVEQ r4, #0
+3907		CMP r4, #0
+3908		BEQ L106
+3909		LDRSB r4, [sp, #1]
+3910		MOV r0, r4
+3911		BL putchar
+3912		LDR r4, =msg_35
+3913		MOV r0, r4
+3914		BL p_print_string
+3915		BL p_print_ln
+3916		B L107
+3917	L106:
+3918		LDR r4, =msg_36
+3919		MOV r0, r4
+3920		BL p_print_string
+3921		BL p_print_ln
+3922	L107:
+3923		ADD sp, sp, #17
+3924		LDR r0, =0
+3925		POP {pc}
+3926		.ltorg
+3927	p_print_string:
+3928		PUSH {lr}
+3929		LDR r1, [r0]
+3930		ADD r2, r0, #4
+3931		LDR r0, =msg_37
+3932		ADD r0, r0, #4
+3933		BL printf
+3934		MOV r0, #0
+3935		BL fflush
+3936		POP {pc}
+3937	p_print_ln:
+3938		PUSH {lr}
+3939		LDR r0, =msg_38
+3940		ADD r0, r0, #4
+3941		BL puts
+3942		MOV r0, #0
+3943		BL fflush
+3944		POP {pc}
+3945	p_read_char:
+3946		PUSH {lr}
+3947		MOV r1, r0
+3948		LDR r0, =msg_39
+3949		ADD r0, r0, #4
+3950		BL scanf
+3951		POP {pc}
+3952	p_check_null_pointer:
+3953		PUSH {lr}
+3954		CMP r0, #0
+3955		LDREQ r0, =msg_40
+3956		BLEQ p_throw_runtime_error
+3957		POP {pc}
+3958	p_read_int:
+3959		PUSH {lr}
+3960		MOV r1, r0
+3961		LDR r0, =msg_41
+3962		ADD r0, r0, #4
+3963		BL scanf
+3964		POP {pc}
+3965	p_check_array_bounds:
+3966		PUSH {lr}
+3967		CMP r0, #0
+3968		LDRLT r0, =msg_42
+3969		BLLT p_throw_runtime_error
+3970		LDR r1, [r1]
+3971		CMP r0, r1
+3972		LDRCS r0, =msg_43
+3973		BLCS p_throw_runtime_error
+3974		POP {pc}
+3975	p_print_int:
+3976		PUSH {lr}
+3977		MOV r1, r0
+3978		LDR r0, =msg_44
+3979		ADD r0, r0, #4
+3980		BL printf
+3981		MOV r0, #0
+3982		BL fflush
+3983		POP {pc}
+3984	p_free_pair:
+3985		PUSH {lr}
+3986		CMP r0, #0
+3987		LDREQ r0, =msg_45
+3988		BEQ p_throw_runtime_error
+3989		PUSH {r0}
+3990		LDR r0, [r0]
+3991		BL free
+3992		LDR r0, [sp]
+3993		LDR r0, [r0, #4]
+3994		BL free
+3995		POP {r0}
+3996		BL free
+3997		POP {pc}
+3998	p_throw_overflow_error:
+3999		LDR r0, =msg_46
+4000		BL p_throw_runtime_error
+4001	p_throw_runtime_error:
+4002		BL p_print_string
+4003		MOV r0, #-1
+4004		BL exit
+4005

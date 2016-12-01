@@ -1,0 +1,9 @@
+# exit in function
+
+begin
+  int f1() is
+    exit 1
+  end
+
+  skip
+end

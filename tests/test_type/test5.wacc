@@ -1,0 +1,17 @@
+# pair elem and array assignement
+
+begin
+  pair(string, char) a = newpair("abcd", 'b');
+  pair(string, char) b = newpair("cdef", 'd');
+
+  string c = fst a;
+  char d = snd b;
+
+  int[] e = [2, 6 , 8, 2];
+  int[] f = [1, 4, 6, 7];
+  int[][] g = [e, f];
+
+  int h = e[1];
+  int[] i = g[1]
+end
+

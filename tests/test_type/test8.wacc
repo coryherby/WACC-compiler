@@ -1,0 +1,9 @@
+# nested array in pair
+
+begin
+  bool[] a = [true, 2, 3];
+  bool[] b = [false];
+  bool[] c = [];
+  pair(bool[], bool[]) p = newpair(b, c);
+  pair(int[], bool[]) q = newpair(b, c)
+end

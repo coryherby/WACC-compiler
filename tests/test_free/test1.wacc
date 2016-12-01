@@ -1,0 +1,6 @@
+# free pair
+
+begin
+  pair(int, int) a = newpair(1, 1);
+  free a
+end

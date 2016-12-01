@@ -1,0 +1,10 @@
+# nested array element call
+
+begin
+  int[] a = [1];
+  int[][] b = [a];
+  int[][][] c = [b];
+  int d = c[1][1][1];
+
+  int[][] e = c[b[1]]
+end

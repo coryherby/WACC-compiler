@@ -1,0 +1,25 @@
+# simple scoping test
+
+# Output:
+# #empty#
+
+# Program:
+
+begin
+  begin
+    int x = 2 ;
+    begin
+      int y = 1;
+      begin
+        int z = 4;
+        z = 4;
+        fz = 4;
+        begin
+          skip ;
+        end ;
+        int x = 2
+      end
+    end
+  end
+end
+

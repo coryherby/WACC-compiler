@@ -1,0 +1,7 @@
+#
+
+begin
+  int a = 1;
+  pair(bool, int) p = newpair(true, 1);
+  pair(pair, pair) q = newpair(p, a)
+end

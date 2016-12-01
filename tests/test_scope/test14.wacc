@@ -1,0 +1,48 @@
+begin
+  int f(int[] a, bool b) is
+    return 0
+  end
+  int g(int[] a, bool b) is
+    bool a = true;
+    return a
+  end
+  string h(int[] a, bool b) is
+      return 10
+  end
+  char i(int[] a, bool b) is
+        return true
+  end
+
+  return 0;
+  if
+                         0123 +
+
+
+                          isbfiufsbi
+
+
+                         then
+     skip
+  else
+     skip
+  fi;
+  if 0123
+  then
+       skip
+else
+       skip
+    fi;
+    if 0123 + isbfiufsbi
+      then
+           skip
+    else
+           skip
+        fi;
+    while 1
+    +
+
+      dgfodb
+     do
+    skip
+    done
+end

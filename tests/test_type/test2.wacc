@@ -1,0 +1,7 @@
+# pair assignment
+
+begin
+  pair(int, int) p = newpair (1, 2);
+  pair(int, int) q = null;
+  pair(pair, pair) r = newpair (p, q)
+end

@@ -1,0 +1,8 @@
+# base type assignments
+
+begin
+  int a = 1;
+  bool b = true;
+  char c = 'c';
+  string d = "abc"
+end
